@@ -1,0 +1,4 @@
+board_id: 1
+label: เครียดมาคั้บ
+date: 2024-Jan-16
+poster: beluga cute cute <br>

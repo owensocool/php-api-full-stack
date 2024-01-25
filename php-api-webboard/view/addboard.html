@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Boxthip</title>
+</head>
+<body bgcolor="#ECE3CE" text="#000000">
+    <div style="margin: auto; width: 80%;">
+        <br />
+        <center><h1>เว็บไซต์กระทู้ที่ดีที่สุด Boxthip</h1>
+        <a href="../index.php">กลับหน้าหลัก</a>
+        </center>
+        <hr />
+        <!-- Button -->
+        <br /> 
+        <br /> 
+        <form method="post" action="..\controller\addboard.php" style="width: 50%; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #FFF4D2;">
+            <h2 style="text-align: center;">สร้างกระทู้ใหม่</h2>
+            <label for="label" style="display: block; margin-bottom: 10px;">ชื่อกระทู้:</label>
+            <input type="text" id="label" name="label" required style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #ECE3CE;">
+
+            <label for="detail" style="display: block; margin-bottom: 10px;">รายละเอียด:</label>
+            <textarea id="detail" name="detail" rows="4" required style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #ECE3CE;"></textarea>
+
+            <label for="poster" style="display: block; margin-bottom: 10px;">ชื่อผู้โพสต์:</label>
+            <input type="text" id="poster" name="poster" required style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #ECE3CE;">
+            <br />
+            
+            <center><button type="submit" style="background-color: #756AB6; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">สร้างกระทู้</button></center>
+        </form>
+    </div>
+</body>
+</html>
