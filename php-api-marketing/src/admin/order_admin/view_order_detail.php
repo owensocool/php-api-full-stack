@@ -98,6 +98,15 @@
             margin: 10px 0;
         }
 
+         #orderButton {
+            background-color: #C70039;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -123,14 +132,27 @@
             $order_id=isset($_GET['order']) ? $_GET['order'] : '';
             $orders = orderDetail($order_id);
 
-            if (!empty($orders)) {
-                echo "<br/> <br/>
+             echo "<br/>
+                        <table border='0' style='width: 60%; border-collapse: collapse; margin: auto; padding-top: 5px; '>
+                            <tr style='text-align: end;'>
+                            <th width='200px;' style='padding: 10px; font-weight: normal;'>Export PDF:
+                                <a href='export_pdf.php?order={$order_id}' style='padding-left:5px; display: inline-block; vertical-align: middle;'>
+                                    <button id='orderButton' type='submit'>
+                                        <img src='../../../public/pdf-50.png' width='30%' alt='pdf' style='vertical-align: middle;'>
+                                        <span style='padding-top: 10px; font-weight: bold; text-align:center;'>PDF</span>
+                                    </button>
+                                </a>
+                            </th>
+                        </tr>
+                          </table>
                         <table border='0' style='width: 60%; border-collapse: collapse; margin: auto; padding-top: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
                             <tr style='background-color: #0A2647; color: white; text-align: center;'>
                                 <th width='200px;' style='padding: 10px;' >ข้อมูลการสั่งซื้อ</th>
                             </tr>
                         </table>
                   ";
+
+            if (!empty($orders)) {
                 foreach ($orders as $row1) {
                     echo "
                         <table border='0' style='width :60%; border-collapse: collapse; margin: auto;'>

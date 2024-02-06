@@ -19,7 +19,7 @@ $cartItems = $result->fetch_all(MYSQLI_ASSOC);
 
 // Close the statement and database connection
 $stmt->close();
-$conn->close();
+
 
 ?>
 
@@ -203,6 +203,7 @@ $conn->close();
                     <th width='50px' style='padding: 10px;'>Product Name</th>
                     <th width='50px' style='padding: 10px;'>Price</th>
                     <th width='50px' style='padding: 10px;'>Quantity</th>
+                    <th width='50px' style='padding: 10px;'>Stock</th>
                     <th width='50px' style='padding: 10px;'>Total</th>
                     <th width='50px' style='padding: 10px;'>Select</th>
                     <th width='50px' style='padding: 10px;'>Delete</th>
@@ -215,12 +216,23 @@ $conn->close();
             $quantity = $item['quantity'];
             $total = $productPrice * $quantity;
 
+                $query = "SELECT product_stock FROM products WHERE product_id = ?";
+                $stmt = $conn->prepare($query);
+                
+                $stmt->bind_param("s", $productId); // Assuming product_id is an integer
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $stock = $row['product_stock'];
+
             echo "<tr>
                     <td style='padding: 10px; cursor: pointer;'>{$productName}</td>
                     <td style='padding: 10px; cursor: pointer; text-align:center;'>{$productPrice} THB</td>
-                    <td style='padding: 10px; text-align:center;'>
-                        <input class='quantity-input' type='number' name='quantity[]' value='{$quantity}' min='1' onchange='updateTotal(this, {$productPrice}, {$index}, \"{$productId}\")'>
+                    <td style='padding: 10px; text-align:center;'>";
+                        $maxQuantity = ($stock == 0) ? 0 : $stock;
+                    echo "<input class='quantity-input' type='number' name='quantity[]' value='{$quantity}' min='1' max='{$maxQuantity}' onchange='updateTotal(this, {$productPrice}, {$index}, \"{$productId}\")'>
                     </td>
+                    <td style='padding: 10px; cursor: pointer; text-align:center;'>{$stock} </td>
                     <td class='total' style='padding: 10px; cursor: pointer; text-align:center;'>{$total} THB</td>
                     <td style='padding: 10px; text-align:center;'>
                         <input type='checkbox' id='productCheckbox' name='selected_products[]' value='{$item['product_id']}'>
@@ -230,7 +242,9 @@ $conn->close();
                     </td>
                 </tr>";
             $totalPrice += $total; // Accumulate the total price
+            $conn->close(); 
         }
+        
 
         echo "</table>";
 

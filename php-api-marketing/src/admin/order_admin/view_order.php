@@ -77,6 +77,30 @@
         .edit-btn img, .delete-btn img {
             width: 120%;
         }
+
+        .status-dropdown {
+            padding: 2px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-size: 12px;
+            width: 100%;
+            max-width: 200px; /* Adjust max-width as needed */
+        }
+
+        /* Style for option elements */
+        .status-dropdown option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* Hover effect for option elements */
+        .status-dropdown option:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+
     </style>
 </head>
 <body>
@@ -110,19 +134,19 @@
         <br />";
        echo "<table border='0' style='width: 90%; border-collapse: collapse; margin: auto; padding-top: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
                 <tr style='background-color: #86B6F6; color: white; text-align: center;'>
-                    <th width='300px' style='padding: 10px;' >รหัสออเดอร์</th>
-                    <th width='300px' style='padding: 10px;'>รหัสลูกค้า</th>
+                    <th width='30px' style='padding: 10px;'>V</th>
+                    <th width='180px' style='padding: 10px;' >รหัสออเดอร์</th>
+                    <th width='180px' style='padding: 10px;'>รหัสลูกค้า</th>
                     <th width='200px' style='padding: 10px;'>ชื่อลูกค้า</th>
                     <th width='250px' style='padding: 10px;'>ที่อยู่</th>
                     <th width='200px' style='padding: 10px;'>เบอร์</th>
                     <th width='100px' style='padding: 10px;'>จำนวน</th>
                     <th width='180px' style='padding: 10px;'>ราคารวม</th>
-                    <th width='200px' style='padding: 10px;'>สถานะ</th>
                     <th width='200px' style='padding: 10px;'>วันที่สั่ง</th>
                     <th width='150px' style='padding: 10px;'>วันที่ส่ง</th>
-                    <th width='200px' style='padding: 10px;'>ล่าสุด</th>
-                    <th width='30px' style='padding: 10px;'>U</th>
-                    <th width='30px' style='padding: 10px;'>D</th>
+                    <th width='300px' style='padding: 10px;'>สถานะ</th>
+                    <th width='50px' style='padding: 10px;'>U</th>
+                    <th width='50px' style='padding: 10px;'>D</th>
                 </tr>";
             while ($row = $result->fetch_assoc()) {
                 $name1 = $row['order_id'];
@@ -137,7 +161,14 @@
                 $name10 = $row['shipping_date'];
                 $name12 = $row['last_update'];
                
-                echo "<tr onclick='redirectToEditPage(\"$name1\")'>
+                echo "<tr>
+                        <td style='padding: 5px; cursor: pointer; text-align:center;'>
+                            <form method='get' action='view_order_detail.php'>
+                                <input type='hidden' name='order' value='$name1'>
+                                <button type='submit' class='edit-btn'>
+                                    <img src='../../../public/eye-48.png' alt='Edit'>
+                                </button>
+                            </form></td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name1</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name2</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name3</td>
@@ -145,28 +176,42 @@
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name5</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name6</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name7</td>
-                        <td style='padding: 10px; cursor: pointer; text-align:center;'>$name8</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name9</td>
                         <td style='padding: 10px; cursor: pointer; text-align:center;'>$name10</td>
-                        <td style='padding: 10px; cursor: pointer; text-align:center;'>$name12</td>
-                        <td>
-                            <form method='post' action='edit_order.php'>
-                                <input type='hidden' name='order_id' value='$name1'>
-                                <button type='submit' class='edit-btn'>
-                                    <img src='../../../public/edit-50.png' alt='Edit'>
-                                </button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method='post' action='delete_order.php'>
-                                <input type='hidden' name='order_id' value='$name1'>
-                                <button type='submit' class='delete-btn'>
-                                    <img src='../../../public/Bin-50.png' alt='Delete'>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>";
-            }
+                        <td style='padding: 10px; cursor: pointer; text-align:center;'>";
+
+                        if ($name8 == 'Cancel') {
+                            echo "<span style='color: red;'>Cancel</span>";
+                        } else {
+                            echo "<select class='status-dropdown' onchange='updateOrderStatus(this.value, \"$name1\")'>
+                                <option value='Order' " . ($name8 == 'Order' ? 'selected' : '') . ">Order</option>
+                                <option value='Processing' " . ($name8 == 'Processing' ? 'selected' : '') . ">Processing</option>
+                                <option value='Shipped' " . ($name8 == 'Shipped' ? 'selected' : '') . ">Shipped</option>
+                                <option value='Delivered' " . ($name8 == 'Delivered' ? 'selected' : '') . ">Delivered</option>
+                            </select>";
+                        }
+                    
+                        echo "</td>
+                                <td>
+                                    <form method='post' action='edit_order.php'>
+                                        <input type='hidden' name='order_id' value='$name1'>
+                                        <button type='submit' class='edit-btn'>
+                                            <img src='../../../public/edit-48.png' alt='Edit'>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form id='cancelForm_$name1' method='post' action='change_status.php'>
+                                        <input type='hidden' name='orderId' value='$name1'>
+                                        <input type='hidden' name='status' value='Cancel'>
+                                        <button type='button' class='delete-btn' onclick='confirmCancel(\"$name1\")'>
+                                            <img src='../../../public/cancel-48.png' alt='Delete'>
+                                        </button>
+                                    </form>
+                                </td>
+
+                            </tr>";
+                    }
             echo "</table>";
     $result->free();
 } else {
@@ -179,11 +224,33 @@ $conn->close();
     <footer>
         &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
     </footer>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function redirectToEditPage(orderId) {
-            window.location.href = 'view_order_detail.php?order=' + orderId;
-        }
+        function updateOrderStatus(status, orderId) {
+            $.ajax({
+                        type: 'POST',
+                        url: './change_status.php',
+                        data: {
+                            status: status,
+                            orderId: orderId
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                        }
+                    });
+            }
+
+             function confirmCancel(orderId) {
+                    // Display a confirmation dialog
+                    var confirmation = confirm("คุณต้องการยกเลิกรายการนี้หรือไม่?");
+
+                    if (confirmation) {
+                        document.getElementById('cancelForm_' + orderId).submit();
+                    }
+                }
     </script>
 </body>
 

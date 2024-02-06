@@ -271,7 +271,7 @@
                     "
                 >
                     <option value="in_stock">มีสต็อกพร้อมส่ง</option>
-                    <option value="out_of_stock">หมดสต็อกรอสินค้า</option>
+                    <option value="out_stock">หมดสต็อกรอสินค้า</option>
                 </select>
                 </td>
             </tr>

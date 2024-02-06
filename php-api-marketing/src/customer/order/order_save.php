@@ -17,7 +17,7 @@ $message = '';
 
 $totalAmount = 0;
 $totalPrice = 0;
-$order_status = 'Processing'; //default
+$order_status = 'Order'; //default
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //get customer data
@@ -57,11 +57,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
            foreach ($cartItems as $cartItem) {
                 $productId = $cartItem['product_id'];
 
+                //find stock in product Id
+                $row = findStock($productId);
+
+                $product_stock_found = $row[0]['product_stock'];
+                $product_status = $row[0]['product_status'];
+
                 $totalAmount += $cartItem['quantity'];
                 $totalPrice += $cartItem['product_price'] * $cartItem['quantity'];
 
                 $quantity = $cartItem['quantity'];
                 $totalPrice1 = $cartItem['product_price'] * $cartItem['quantity'];
+
+                $stock = $product_stock_found - $cartItem['quantity'];
+
+                if($stock == 0){
+                    $product_status = "out_stock";
+                }
+
+                //update product
+                $stmt = $conn->prepare("UPDATE products SET product_stock=?,product_status=?, last_update=CURRENT_TIMESTAMP WHERE product_id = ?");
+                $stmt->bind_param("iss",$stock,$product_status,$productId);
+                if ($stmt->execute()) {
+                    echo "Update data for product ID = <span style='color:red;'> '$productId' </span> is Successful.";
+                } else {
+                    echo "Error: " . $stmt->error;
+                }
+                $stmt->close();
+
 
                 // Insert into detail table
                     $insertDetailQuery = "INSERT INTO detail (order_id, product_id, amount, total_price, last_update) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -69,6 +92,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $stmtInsertDetail->bind_param("ssds", $order_id, $productId, $quantity, $totalPrice1);
                     $stmtInsertDetail->execute();
                     $stmtInsertDetail->close();
+
+
 
                     // Delete item from cart
                     $deleteCartItemQuery = "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?";

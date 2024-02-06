@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div style='padding-left:60px; padding-right:60px; padding-top:20px;'>
         <h3>หน้ารวมสินค้า</h3>
         <div class="card-container">
-            <?php
+           <?php
             require_once '../../../config/db/connection.php';
 
             $query = "SELECT * FROM products";
@@ -184,19 +184,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($result) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<div class='card'>
+                    // Check if the product is out of stock
+                    $disabled = ($row['product_stock'] == 0) ? 'disabled' : '';
+                    $buttonColor = ($row['product_stock'] == 0) ? 'background-color: #cccccc;' : '';
+                    $statusColor = ($row['product_stock'] > 0) ? 'green' : 'red';
+
+                    $maxAmount = ($row['product_stock'] == 0) ? 0 : $row['product_stock'];
+
+                   echo "<div class='card'>
                             <img src='{$row['image_path']}' alt='Product Image'>
                             <h3>{$row['product_name']}</h3>
                             <p>Price: {$row['product_price']} THB</p>
+                            <p style='color: $statusColor;'>{$row['product_status']}</p>
                             <form method='post'>
                                 <label for='amount{$row['product_id']}'>Amount:</label>
-                                <input type='number' name='amount' id='amount{$row['product_id']}' value='1' min='1'>
+                                <input type='number' name='amount' id='amount{$row['product_id']}' value='1' min='1' max='$maxAmount'>
                                 <input type='hidden' name='product_id' value='{$row['product_id']}'>
                                 <input type='hidden' name='product_name' value='{$row['product_name']}'>
                                 <input type='hidden' name='product_price' value='{$row['product_price']}'>
-                                <button type='submit' name='add_to_cart'>Add to Cart</button>
+                                <button type='submit' name='add_to_cart' $disabled style='$buttonColor'>Add to Cart</button>
                             </form>
-                          </div>";
+                        </div>";
                 }
                 $result->free();
             } else {
@@ -204,7 +212,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->close();
-        ?>
+            ?>
+
         </div>
 </div>
 

@@ -100,5 +100,28 @@ function orderDetail($order_id){
     }
 }
 
+function findStock($product_id){
+    global $conn;
+    $sql = "SELECT product_stock,product_status FROM products WHERE product_id = ?";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        die("Error in SQL query preparation: " . $conn->error);
+    }
+
+    $stmt->bind_param("s", $product_id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $rows;
+    } else {
+        die("Error executing SQL query: " . $stmt->error);
+    }
+}
+
 
 ?>
