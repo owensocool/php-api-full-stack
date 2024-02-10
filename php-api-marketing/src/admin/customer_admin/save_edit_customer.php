@@ -1,8 +1,8 @@
 <?php
 require_once '../../../config/db/connection.php';
 
-$stmt = $conn->prepare("UPDATE customer SET name=?,  sex=?, email=?, address=?, tel=?, last_update=CURRENT_TIMESTAMP WHERE customer_id=?");
-$stmt->bind_param("sssssss", $name,  $sex, $email, $address, $tel, $customer_id);
+$stmt = $conn->prepare("UPDATE customer SET name = ?,  sex = ?, email = ?, address = ?, tel = ?, last_update = CURRENT_TIMESTAMP WHERE customer_id = ?");
+$stmt->bind_param("ssssss", $name,  $sex, $email, $address, $tel, $customer_id);
 
 $customer_id = $_POST['customer_id'];
 $name = $_POST['name'];
@@ -10,6 +10,7 @@ $sex = $_POST['sex'];
 $email = $_POST['email'];
 $address = $_POST['address'];
 $tel = $_POST['tel'];
+
 
 if ($stmt->execute()) {
     echo "Update data for customer ID = <span style='color:red;'> '$customer_id' </span> is Successful.";

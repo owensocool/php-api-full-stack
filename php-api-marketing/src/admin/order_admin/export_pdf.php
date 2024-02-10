@@ -1,5 +1,4 @@
 <?php
-// Include autoloader
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Dompdf\Dompdf;
@@ -16,6 +15,7 @@ $dompdf = new Dompdf($options);
 
 require_once ('../../../config/db/connection.php');
 require_once '../../customer/order/order_operator.php';
+
 $order_id = isset($_GET['order']) ? $_GET['order'] : '';
 $orders = orderDetail($order_id);
 

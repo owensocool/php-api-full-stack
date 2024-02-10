@@ -9,14 +9,19 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
+        .hidden {
+            display:none;
+        }
 
         header {
             background: linear-gradient(to right, #0A2647, #144272, #205295);
+            width: 100%;
             color: #fff;
             padding: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: center; 
+            position: fixed;
         }
 
         .logo {
@@ -221,9 +226,7 @@
 $conn->close();
 ?>
 </div>
-    <footer>
-        &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
-    </footer>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function updateOrderStatus(status, orderId) {

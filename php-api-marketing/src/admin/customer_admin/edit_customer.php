@@ -124,11 +124,11 @@
             <table width='500px'>
                 <tr>
                     <td width='100px' style='padding: 10px; font-weight: bold;'>รหัสลูกค้า<a style="color:red;"> *</a></td>
-                    <td><input type="text" name="customer_id" required disabled style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"   value="<?php echo $row['customer_id']; ?>"></td>
+                    <td><input type="hidden" name="customer_id" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;" value="<?php echo $row['customer_id']; ?>"> <a style="width: 95%; padding: 8px; margin: 10px;" ><?php echo $row['customer_id']; ?></a> </td>
                 </tr>
                 <tr>
                     <td width='100px' style='padding: 10px; font-weight: bold;'>ชื่อ-นามสกุล<a style="color:red;"> *</a></td>
-                    <td><input type="text" name="name" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"   value="<?php echo $row['name']; ?>"></td>
+                    <td><input type="text" name="name" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;" value="<?php echo $row['name']; ?>"></td>
                 </tr>
                 <tr>
                     <td width='100px' style='padding: 10px; font-weight: bold;'>เพศ<a style="color:red;"> *</a></td>
@@ -150,7 +150,7 @@
                 </tr>
                 <tr>
                     <td width='100px' style='padding: 10px;font-weight: bold;'>E-mail<a style="color:red;"> *</a></td>
-                    <td><input type="text" name="email" style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"  value="<?php echo $row['email']; ?>"></td>
+                    <td><input type="email" name="email" style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"  value="<?php echo $row['email']; ?>"></td>
                 </tr>
                 
             </table>

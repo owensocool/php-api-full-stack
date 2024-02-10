@@ -53,14 +53,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             font-family: Arial, sans-serif;
         }
+        .hidden {
+            display:none;
+        }
 
         header {
             background: linear-gradient(to right, #0A2647, #144272, #205295);
+            width: 100%;
             color: #fff;
             padding: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: center; 
+            position: fixed;
         }
 
         .logo {
@@ -109,12 +114,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .card {
-            width: 18%;     
+            width: 20%;     
             border-radius: 5px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease-in-out;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
 
@@ -173,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a class="login-btn"></a>
     </header>
 
-<div style='padding-left:60px; padding-right:60px; padding-top:20px;'>
+<div style='padding-left:60px; padding-right:60px; padding-top:70px;'>
         <h3>หน้ารวมสินค้า</h3>
         <div class="card-container">
            <?php
@@ -216,10 +221,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </div>
 </div>
-
-    <footer>
-        &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
-    </footer>
-
 </body>
 </html>
