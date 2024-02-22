@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,21 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        header {
+            background: linear-gradient(to right, #0A2647, #144272, #205295);
+            width: 100%;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            position: fixed;
         }
 
         header {
@@ -57,15 +72,7 @@
             font-weight: bold;
         }
 
-        footer {
-            background: linear-gradient(to right, #092635, #5C8374, #1B4242);
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+        
 
         .edit-btn, .delete-btn {
         border: none;
@@ -118,6 +125,7 @@
             <a href="..\product_admin\view_product.php">จัดการสินค้า</a>
             <a href="view_order.php">จัดการออเดอร์</a>
             <a href="..\customer_admin\view_customer.php">จัดการลูกค้า</a>
+            <a href="..\income_admin\revenue.php">รายรับ</a>
         </nav>
         <a class="login-btn"></a>
     </header>
@@ -157,31 +165,41 @@
                     echo "
                         <table border='0' style='width :60%; border-collapse: collapse; margin: auto;'>
                             <tr>
-                                <th width='50%;' style='padding: 10px;'><h2>ใบรายการการสั่งซื้อ</h2></th>
+                                <th width='20%;' style='padding: 10px; text-align: left;'><h2>ใบเสร็จรับเงิน</h2></th>
+                                
                                 <th width='5%;' style='padding: 10px;'></th>
-                                <th width='21%;' style='padding: 10px; text-align: start;'><a>Beluga Group (th) Co.,ltd <br><hr></a>
-                                <a style='font-weight: normal;'>888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร <br> โทร 02-888-8888</a></th>
                             </tr>
+  
                              <tr>
+                                
                                 <th width='50%;' style='padding: 10px; text-align: start;'>
-                                    <a style='font-weight: bold;'>ข้อมูลผู้ซื้อ <br></a>
+            
                                     <br>
-                                    <a>ชื่อผู้สั่ง : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
-                                    <a>ชื่อผู้รับ : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_receive']} </a><br></a>
-                                    <a>ชื่อผู้ส่ง : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']} </a><br></a>
-                                    <a>หมายเลขกำกับภาษี : <a style='font-weight: normal;'>{$row1['tax_no']} </a><br></a>
-                                    <a>ที่อยู่จัดส่ง : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
-                                    <a>หมายเลขโทรศัพท์ : &nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tel']} </a><br></a>
+                                    <a>ชื่อผู้สั่ง / customer  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
+                                    <a>ชื่อผู้รับ   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_receive']} </a><br></a>
+                                    <a>ที่อยู่ / Address  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
+                                    <a>เลขผู้เสียภาษี / TEX ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tax_no']} E: </a><br></a>
+                                    <a>ชื่อผู้ส่ง / Attention  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']}  T: {$row1['tel']} </a><br></a>
+                                    
+                                    <hr>
+                                    <a>ผู้ออก : &nbsp;&nbsp;<a width='21%;' style='padding: 10px; text-align: start;'><a>Beluga Group (th) Co.,ltd </a><br></a>
+                                    <a style='font-weight: normal;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; โทร 02-888-8888</a></th>
                                 </th>
 
-                                <th width='5%;' style='padding: 10px;'></th>
-
-                                <th width='21%;' style='padding: 10px; text-align: start;'>
-                                    <br><br><br><br><br><br>
+                                <th width='20%;' style='padding: 10px; position: absolute; top: 200px; right: 250px;'>
                                     <a>วันที่สั่ง : <a style='font-weight: normal;'>{$row1['order_date']}</a><br></a>
                                     <a>วันที่ส่ง : <a style='font-weight: normal;'>{$row1['shipping_date']}</a><br></a>
                                     <a>วันที่รับ : <a style='font-weight: normal;'>{$row1['receive_date']}</a><br></a>
                                 </th>
+
+                                <th width='30%;' style='padding: 10px; text-align: start; position: absolute; top: 335px; right: 280px;'>
+                                    <a><a style='font-weight: normal;'>เลขผู้เสียภาษี / TEX ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1552515</a><br></a>
+                                    <a><a style='font-weight: normal;'>จัดเตรียมโดย / Prepared by &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nattakrit Klindokkeaw</a><br></a>
+                                    <a><a style='font-weight: normal;'>T:25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E: 63050121@kmitl.ac.th</a><br></a>
+                                    <a><a style='font-weight: normal;'>W: https://owen.com</a><br></a>
+                                </th>
+
                             </tr>
                         </table>
 
@@ -192,6 +210,7 @@
                                 <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: bold;'>รายการที่สั่งซื้อ</a></th>
                                 <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>จำนวน</a></th> 
                                 <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคาต่อหน่วย</a></th>
+                                <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ภาษี</a></th>
                                 <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคารวม</a></th>
                             </tr>";
 
@@ -227,6 +246,7 @@
                                             <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>$line . $name1</a></th>
                                             <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>$name2</a></th> 
                                             <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>$name3</a></th>
+                                            <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>7%</a></th>
                                             <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal; '>$name4</a></th>
                                         </tr>";
                                 }
@@ -235,12 +255,7 @@
                                 die("Error executing SQL query: " . $stmt->error);
                             }
 
-                                    echo "<tr>
-                                            <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>vat</a></th>
-                                            <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th> 
-                                            <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th>
-                                            <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal; '>7%</a></th>
-                                        </tr>";
+                                    
                                     echo "<tr>
                                             <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>shipping cost</a></th>
                                             <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th> 
@@ -255,14 +270,22 @@
              echo "
                     <table border='1' style='width :60%; border-collapse: collapse; margin: auto;'>
                         <tr>
+                            <th width='60%;' style='padding: 10px; text-align: start; '>ราคาสุทธิสินค้าที่เสียภาษี</th>
+                            <th width='20%;' style='padding: 10px; text-align: center; font-weight: normal;'>$name3 บาท</th>
+                    
+                        </tr>
+                        <tr>
+                            <th width='60%;' style='padding: 10px; text-align: start; '>ภาษีมูลค่าเพิ่ม(บาท)/VAT</th>
+                        </tr>
+                        <tr>
                             <th width='60%;' style='padding: 10px; text-align: start; '>จำนวนรวมทั้งสิ้น</th>
-                            <th width='20%;' style='padding: 10px; text-align: center; font-weight: normal;'>{$row1['amount']} รายการ</th>
-                            <th width='20%;' style='padding: 10px; text-align: end; font-weight: normal;'>{$row1['total_price']} บาท</th>
+                            <th width='20%;' style='padding: 10px; text-align: center; font-weight: normal;'>$name4 บาท</th>
                         </tr>
                     </table>";
             }
 
         } 
+        
     ?>
     </div>
 
