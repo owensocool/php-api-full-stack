@@ -82,6 +82,7 @@
         <a href="view_product.php">จัดการสินค้า</a>
         <a href="..\order_admin\view_order.php">จัดการออเดอร์</a>
         <a href="..\customer_admin\view_customer.php">จัดการลูกค้า</a>
+        <a href="..\income_admin\revenue.php">รายรับ</a>
       </nav>
       <a class="login-btn"></a>
     </header>

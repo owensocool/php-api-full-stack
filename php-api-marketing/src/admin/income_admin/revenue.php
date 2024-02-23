@@ -43,8 +43,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Revenue Report</title>
     <style>
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
         }
+
+        header {
+            background: linear-gradient(to right, #0A2647, #144272, #205295);
+            width: 100%;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            position: fixed;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+            padding-left: 30px;
+            margin-right: 10px;
+        }
+
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding-right: 30px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .login-btn { 
+            margin-right: 30px;
+            margin-left: auto;
+            padding: 10px 16px; 
+            color: #fff;
+            border: none;
+            font-weight: bold;
+        }
+
         h2 {
             text-align: center;
         }
@@ -111,6 +162,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
+     <header>
+        <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
+        <nav>
+            <a href="../../../index.php">หน้าหลัก</a>
+            <a href="..\product_admin\view_product.php">จัดการสินค้า</a>
+            <a href="..\order_admin\view_order.php">จัดการออเดอร์</a>
+            <a href="..\customer_admin\view_customer.php">จัดการลูกค้า</a>
+            <a href="revenue.php">รายรับ</a>
+        </nav>
+        <a class="login-btn"></a>
+    </header>
+
+    <div>
+        <br /><br/><br/>
     <h2>Revenue Report</h2>
 
     <!-- Date selection form -->
@@ -155,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="hidden" name="end_date" value="<?php echo $endDate; ?>">
     <input class="export-btn" type="submit" name="export_excel" value="Export to Excel">
     </form>
+    </div>
 </body>
 </html>
 
