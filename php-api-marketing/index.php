@@ -142,9 +142,9 @@ session_start();
             if(isset($_SESSION['role'])) {
                 $userRole = $_SESSION['role'];
                 if($userRole == 'admin') {
-                    header("Location: ");
-                    exit();
-                    
+                    // header("Location: ./src/admin/product_admin/view_product.php ");
+                    // exit();
+                    echo '<a href="./src/admin/product_admin/view_product.php" class="admin-link">หน้าแอดมิน</a>';
                 } else {
                     echo '<a href="./src/customer/controller/product_list.php" class="customer-link">หน้าลูกค้า</a>';
                 }

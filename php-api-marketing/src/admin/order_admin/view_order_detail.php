@@ -22,7 +22,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center; 
-            position: fixed;
         }
 
         header {
@@ -175,14 +174,15 @@
                                 <th width='50%;' style='padding: 10px; text-align: start;'>
             
                                     <br>
-                                    <a>ชื่อผู้สั่ง / customer  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
+                                    <a>ชื่อผู้สั่ง / customer  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
                                     <a>ชื่อผู้รับ   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_receive']} </a><br></a>
-                                    <a>ที่อยู่ / Address  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
-                                    <a>เลขผู้เสียภาษี / TEX ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tax_no']} E: </a><br></a>
-                                    <a>ชื่อผู้ส่ง / Attention  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']}  T: {$row1['tel']} </a><br></a>
+                                    <a>ที่อยู่ / Address  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
+                                    <a>เลขผู้เสียภาษี / TAX ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tax_no']} E: </a><br></a>
+                                    <a>ชื่อผู้ส่ง / Attention  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']}  T: {$row1['tel']} </a><br></a>
                                     
-                                    <hr>
-                                    <a>ผู้ออก : &nbsp;&nbsp;<a width='21%;' style='padding: 10px; text-align: start;'><a>Beluga Group (th) Co.,ltd </a><br></a>
+                                    <hr width= '111%;' />
+
+                                    <a>ผู้ออก : &nbsp;<a width='21%;' style='padding: 10px; text-align: start;'><a>Beluga Group (th) Co.,ltd </a><br></a>
                                     <a style='font-weight: normal;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร <br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; โทร 02-888-8888</a></th>
                                 </th>
@@ -193,10 +193,10 @@
                                     <a>วันที่รับ : <a style='font-weight: normal;'>{$row1['receive_date']}</a><br></a>
                                 </th>
 
-                                <th width='30%;' style='padding: 10px; text-align: start; position: absolute; top: 335px; right: 280px;'>
-                                    <a><a style='font-weight: normal;'>เลขผู้เสียภาษี / TEX ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1552515</a><br></a>
-                                    <a><a style='font-weight: normal;'>จัดเตรียมโดย / Prepared by &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nattakrit Klindokkeaw</a><br></a>
-                                    <a><a style='font-weight: normal;'>T:25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E: 63050121@kmitl.ac.th</a><br></a>
+                                <th width='30%;' style='padding: 10px; text-align: start; position: absolute; top: 405px; right: 230px;'>
+                                    <a><a style='font-weight: normal;'>เลขผู้เสียภาษี / TAX ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1552515</a><br></a>
+                                    <a><a style='font-weight: normal;'>จัดเตรียมโดย / Prepared by &nbsp;&nbsp;&nbsp;Nattakrit Klindokkeaw</a><br></a>
+                                    <a><a style='font-weight: normal;'>T:25 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E: 63050121@kmitl.ac.th</a><br></a>
                                     <a><a style='font-weight: normal;'>W: https://owen.com</a><br></a>
                                 </th>
 
@@ -289,9 +289,9 @@
     ?>
     </div>
 
-    <footer>
+    <!-- <footer>
         &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
-    </footer>
+    </footer> -->
 </body>
 
 </html>
