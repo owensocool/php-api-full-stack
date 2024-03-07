@@ -187,9 +187,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Date selection form -->
     <form class="date-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="start_date">Start Date:</label>
-        <input type="date" id="start_date" name="start_date" value="<?php echo $oneMonthAgo; ?>" required>
+        <input type="date" id="start_date" name="start_date" value="<?php echo $startDate; ?>" required>
         <label for="end_date">End Date:</label>
-        <input type="date" id="end_date" name="end_date" value="<?php echo $currentDate; ?>" required>
+        <input type="date" id="end_date" name="end_date" value="<?php echo $endDate; ?>" required>
         <input type="submit" value="Submit">
     </form>
 
