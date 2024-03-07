@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../auth/view/signIn.html");
-    exit();
-}
 
 $user_id = $_SESSION['user_id'];
 include_once '../../../config/db/connection.php';
@@ -21,7 +17,17 @@ $order_status = 'Order'; //default
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //get customer data
-    $customer_id = $_POST['customer_id'];
+    //gen order_id
+    $customer_id = 'CUS'.rand(100000000, 999999999);
+    $customer_id_validate = findCustomer_id($customer_id);
+    while ($customer_id == $customer_id_validate){
+            $customer_id = 'CUS'.rand(100000000, 999999999);
+            $customer_id_validate = findCustomer_id($customer_id);
+            if($customer_id != $customer_id_validate){
+                break;
+            }
+    }
+
     $name_order = $_POST['name_order'];
     $name_receive = $_POST['name_receive'];
     $email= $_POST['email'];
@@ -36,10 +42,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receive_date = date('Y-m-d H:i:s', strtotime('+10 days'));
     
     //gen order_id
-    $order_id = 'ORD'.uniqid();
+    $order_id = 'ORD'.rand(100000000, 999999999).'TH';
     $order_id_validate = getOrder_id($order_id);
     while ($order_id == $order_id_validate){
-            $order_id = 'ORD'.uniqid();
+            $order_id = 'ORD'.rand(100000000, 999999999).'TH';
             $order_id_validate = getOrder_id($order_id);
             if($order_id != $order_id_validate){
                 break;
@@ -112,12 +118,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $stmtInsertOrder->bind_param("sssssssssssdddds", $order_id, $customer_id, $name_order, $name_receive, $name_bill,$tax_no,$address,$tel,$order_date,$shipping_date,$receive_date, $totalAmount, $shipping_cost,$vat, $totalPriceWithShipping,$order_status);
     $stmtInsertOrder->execute();
     $stmtInsertOrder->close();
+    
+
+    $insertCustomerQuery = "INSERT INTO customer (customer_id, user_id, name, sex, email, address, tel, last_update) VALUES (?, ?, ?, 'guess', ?, ?, ?, CURRENT_TIMESTAMP)";
+    $stmtInsertCustomer = $conn->prepare($insertCustomerQuery);
+    $stmtInsertCustomer->bind_param("ssssss", $customer_id, $user_id, $name_order, $email, $address, $tel);
+    $stmtInsertCustomer->execute();
+    $stmtInsertCustomer->close();
     $message = 'success';
+
+
     $conn->close();
 
     if ($message == 'success'){
         // Redirect or display a success message as needed
-        header("Location: order_list.php");
+         header("Location: order_detail.php?order=" . $order_id);
         exit();
     }
 

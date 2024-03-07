@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../auth/view/signIn.html");
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: ../../auth/view/signIn.html");
+//     exit();
+// }
 
 $user_id = $_SESSION['user_id'];
 
@@ -166,10 +166,9 @@ else{
     <header>
         <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
-            <a href="../../../index.php">หน้าหลัก</a>
-            <a href="product_list.php">หน้ารวมสินค้า</a>
+            <a href="../home/index.php">หน้าหลัก</a>
             <a href="../controller/cart.php">ตะกร้า</a>
-            <a href="order_list.php">รายการที่สั่ง</a>
+            <a href="../order/search_order.php">ค้นหา Order</a>
         </nav>
         <a class="login-btn"></a>
     </header>
@@ -184,28 +183,26 @@ else{
             <?php
                 require_once '../../../config/db/connection.php';
 
-                $stmt = $conn->prepare("SELECT * FROM customer WHERE user_id = ?");
-                $stmt->bind_param("s", $user_id);
-                $stmt->execute();
-
-                $result = $stmt->get_result();
-
-
-                if ($result && $row = $result->fetch_assoc()) {
+                // $stmt = $conn->prepare("SELECT * FROM customer WHERE user_id = ?");
+                // $stmt->bind_param("s", $user_id);
+                // $stmt->execute();
+                // $result = $stmt->get_result();
+                // if ($result && $row = $result->fetch_assoc()) {
             ?>
             <form id="customerForm" method="post" action="order_save.php" name="customerForm">
-                <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $row['customer_id']; ?>">
-                <input type="hidden" id="name_order" name="name_order" value="<?php echo $row['name']; ?>">
+                <!-- <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $row['customer_id']; ?>"> -->
+                <label for="name_receive"> ชื่อ-นามสกุล (ผู้สั่ง): </label>
+                <input type="text" id="name_order" name="name_order" require>
                 <label for="name_receive"> ชื่อ-นามสกุล (ผู้รับ): </label>
-                <input type="text" id="name_receive" name="name_receive" value="<?php echo $row['name']; ?>" required>
+                <input type="text" id="name_receive" name="name_receive" required>
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" required>
+                <input type="email" id="email" name="email" required>
                 <label for="tel">เบอร์โทรศัพท์:</label>
-                <input type="text" id="tel" name="tel" value="<?php echo $row['tel']; ?>" required>
+                <input type="text" id="tel" name="tel" required>
                 <label for="address">ที่อยู่จัดส่ง:</label>
-                <input type="text" id="address" name="address" value="<?php echo $row['address']; ?>" required>
+                <input type="text" id="address" name="address" required>
                 <label for="name_bill">ชื่อ-นามสกุล: (ชื่อผู้ออกบิล) </label>
-                <input type="text" id="name_bill" name="name_bill" value="<?php echo $row['name']; ?>" required>
+                <input type="text" id="name_bill" name="name_bill" required>
                 <label for="tax_no">หมายเลขประจำตัวผู้เสียภาษี (ถ้ามี):</label>
                 <input type="text" id="tax_no" name="tax_no" >
                 <input type="hidden" name="cart_items" value="<?php echo htmlspecialchars(json_encode($cartItems)); ?>">
@@ -227,9 +224,9 @@ else{
                 /></center> -->
             </form>
               <?php
-                } else {
-                    echo "Error fetching customer data";
-                } 
+                // } else {
+                //     echo "Error fetching customer data";
+                // } 
             ?>
         </div>
 

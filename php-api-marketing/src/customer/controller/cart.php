@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../auth/view/signIn.html");
-    exit();
+    $_SESSION['user_id'] = 'guess';
 }
 
 $user_id = $_SESSION['user_id'];
+
 include_once '../../../config/db/connection.php';
 
 // Fetch cart items from the database
@@ -177,10 +177,9 @@ $stmt->close();
     <header>
         <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
-            <a href="../../../index.php">หน้าหลัก</a>
-            <a href="product_list.php">หน้ารวมสินค้า</a>
+            <a href="../home/index.php">หน้าหลัก</a>
             <a href="cart.php">ตะกร้า</a>
-            <a href="../order/order_list.php">รายการที่สั่ง</a>
+            <a href="../order/search_order.php">ค้นหา Order</a>
         </nav>
         <a class="login-btn"></a>
     </header>
@@ -242,7 +241,7 @@ $stmt->close();
                     </td>
                 </tr>";
             $totalPrice += $total; // Accumulate the total price
-            $conn->close(); 
+           // $conn->close(); 
         }
         
 

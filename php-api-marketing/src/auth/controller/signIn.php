@@ -2,10 +2,10 @@
 session_start();
 require_once('../controller/auth_operation.php');
 
-if(isset($_SESSION['user_id'])) {
-    header("Location: ../../../index.php");
-    exit();
-}
+// if(!isset($_SESSION['user_id']) || $_SESSION['role'] == 'admin'){
+//     header("Location: ../../customer/home/index.php");
+//     exit();
+// }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Authentication successful";
 
                 if ($role == "admin") {
-                    header("Location: ../../../index.php"); // Redirect to admin page
+                    header("Location: ../../customer/home/index.php"); // Redirect to admin page
                 } else {
-                    header("Location: ../../../index.php"); // Redirect to user page
+                    header("Location: ../../customer/home/index.php"); // Redirect to user page
                 }
                 exit();
             } else {

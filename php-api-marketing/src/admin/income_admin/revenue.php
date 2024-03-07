@@ -87,14 +87,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: none;
         }
 
-        .login-btn { 
+         .login-btn { 
             margin-right: 30px;
             margin-left: auto;
-            padding: 10px 16px; 
+            padding: 10px 16px;
+            background-color: #176B87;
             color: #fff;
             border: none;
+            border-radius: 4px;
+            cursor: pointer;
             font-weight: bold;
         }
+
 
         h2 {
             text-align: center;
@@ -165,13 +169,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      <header>
         <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
-            <a href="../../../index.php">หน้าหลัก</a>
+            <a href="../../customer/home/index.php">หน้าหลัก</a>
             <a href="..\product_admin\view_product.php">จัดการสินค้า</a>
             <a href="..\order_admin\view_order.php">จัดการออเดอร์</a>
             <a href="..\customer_admin\view_customer.php">จัดการลูกค้า</a>
             <a href="revenue.php">รายรับ</a>
         </nav>
-        <a class="login-btn"></a>
+       <div></div>
+        
+        <a href="../../auth/controller/logout.php"><button class="login-btn">ออกจากระบบ</button></a>
     </header>
 
     <div>
