@@ -1,5 +1,6 @@
 <?php
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
 
 $product_id = $_POST['product_id'];
 $product_name = $_POST['product_name'];

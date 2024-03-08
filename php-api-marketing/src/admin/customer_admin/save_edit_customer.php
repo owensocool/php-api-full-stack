@@ -1,5 +1,6 @@
 <?php
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
 
 $stmt = $conn->prepare("UPDATE customer SET name = ?,  sex = ?, email = ?, address = ?, tel = ?, last_update = CURRENT_TIMESTAMP WHERE customer_id = ?");
 $stmt->bind_param("ssssss", $name,  $sex, $email, $address, $tel, $customer_id);

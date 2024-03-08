@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../controller/auth_operation.php');
+require_once('../../admin/log/access_log.php');
 
 // if(!isset($_SESSION['user_id']) || $_SESSION['role'] == 'admin'){
 //     header("Location: ../../customer/home/index.php");
@@ -23,25 +24,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $role = $row['role'];
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['role'] = $row['role'];
-                $message = "Authentication successful";
+                $_SESSION['username'] = $row['username'];
 
                 if ($role == "admin") {
                     header("Location: ../../customer/home/index.php"); // Redirect to admin page
+                    $message = "admin login success";
                 } else {
                     header("Location: ../../customer/home/index.php"); // Redirect to user page
+                    $message ="customer login success";
                 }
-                exit();
+            logMessage($message);    
+            exit();
             } else {
-                $message = "Username or password is incorrect";
+                $message1 = "Username or password is incorrect";
                 header("Location: ../view/signIn.html");
             }
         } else {
-            $message = "Username or password is incorrect";
+            $message1 = "Username or password is incorrect";
             header("Location: ../view/signIn.html");
         }
     } else {
-        $message = "Empty field(s)";
         header("Location: ../view/signIn.html");
     }
+    
 }
 ?>

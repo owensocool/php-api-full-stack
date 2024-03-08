@@ -1,5 +1,6 @@
 <?php
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
 
 $stmt = $conn->prepare("INSERT INTO products (product_id, product_name, product_price, type, model, mark, image_path, product_stock, product_status, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
 $stmt->bind_param("sssssssss", $product_id, $product_name, $product_price, $type, $model, $mark, $image_path, $product_stock, $product_status);

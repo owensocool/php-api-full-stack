@@ -142,12 +142,12 @@
                             <tr style='text-align: end;'>
                             <th style='padding: 10px; text-align: start;'>หมายเลขคำสั่งซื้อ : {$order_id} </th>
                             <th width='200px;' style='padding: 10px; font-weight: normal;'>
-                                <!--Export PDF:<a href='export_pdf.php?order={$order_id}' style='padding-left:5px; display: inline-block; vertical-align: middle;'>
+                                Export PDF:<a href='../../admin/order_admin/export_pdf.php?order={$order_id}' style='padding-left:5px; display: inline-block; vertical-align: middle;'>
                                     <button id='orderButton' type='submit'>
                                         <img src='../../../public/pdf-50.png' width='30%' alt='pdf' style='vertical-align: middle;'>
                                         <span style='padding-top: 10px; font-weight: bold; text-align:center;'>PDF</span>
                                     </button>
-                                </a>-->
+                                </a>
                             </th>
                         </tr>
                           </table>

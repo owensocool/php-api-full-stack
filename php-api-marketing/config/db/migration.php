@@ -121,4 +121,21 @@ if ($conn->query($sqlCart) === TRUE) {
     echo "Error creating table: " . $conn->error . "<br>";
 }
 
+// Migrate access log table
+$sqlCart = "
+    CREATE TABLE IF NOT EXISTS access_log (
+    uuid VARCHAR(255) PRIMARY KEY,
+    timestamp timestamp,
+    username VARCHAR(20),
+    ip_address VARCHAR(20),
+    action VARCHAR(255) NOT NULL
+)";
+
+if ($conn->query($sqlCart) === TRUE) {
+    echo "Table 'cart' created successfully<br>";
+} else {
+    echo "Error creating table: " . $conn->error . "<br>";
+}
+
+
 $conn->close();

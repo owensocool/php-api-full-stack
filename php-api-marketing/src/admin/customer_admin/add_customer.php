@@ -1,5 +1,6 @@
 <?php
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
 
 $stmt = $conn->prepare("INSERT INTO customer (customer_id, name, sex, email, address, tel, last_update) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
 $stmt->bind_param("sssssss", $customer_id, $name, $sex, $email, $address, $tel);

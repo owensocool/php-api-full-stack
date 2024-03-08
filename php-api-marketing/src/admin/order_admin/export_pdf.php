@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once '../log/access_log.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -44,6 +45,11 @@ $html = <<<HTML
             font-family: 'THSarabunNew001', 'THSarabunNew001-bold';
             margin: 0;
         }
+        .vertical-line {
+            border-left: 2px solid #000; /* กำหนดสีและขนาดของเส้นแนวตั้ง */
+            height: 100px; /* กำหนดความสูงของเส้นแนวตั้ง */
+            margin-left:45px; /* ระยะห่างจากขอบซ้าย */
+        }
     </style>
 </head>
 <body>
@@ -52,51 +58,75 @@ HTML;
 
 if (!empty($orders)) {
     foreach ($orders as $row1) {
-        $html .= "<table border='0' style='width:95%; border-collapse: collapse; margin: auto;'>
+        $html .= "<hr width= '95%;' /><table border='0' style='width:95%; border-collapse: collapse; margin: auto;'>
                             <tr>
-                                <th width='50%;' style='text-align:left;'><h1>ใบรายการการสั่งซื้อ</h1></th>
-                           
-                                <th width='21%;'>
+                                <th width='30%;' style='text-align:center;'><h1>ใบเสร็จรับเงิน</h1></th>
+                                <div class='vertical-line'></div>
+                                <th width='30%;'>
                                     <div style='text-align:center;'>
-                                        <a style='font-size:20px;'>Beluga Group (th) Co.,ltd <hr/></a>
-                                        <a style='font-weight:normal;font-size:16px;'>888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร โทร 02-888-8888</a>
+                                        <a style='font-size:20px;'>Beluga Group (th) Co.,ltd </a>
+                                       
+                                    </div>
+                                </th>
+                                <th width='30%;'>
+                                    <div style='text-align:center;'>
+                                        <a style='font-weight:normal;font-size:16px; '>888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร โทร 02-888-8888</a>
                                     </div>
                                 </th>
                             </tr>
                     </table>
-                            <table border='0' style='width: 95%; border-collapse: collapse; margin: auto; padding-top: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
-                                <tr style='background-color: #0A2647; color: white; text-align: center;'>
-                                    <th width='100px;'></th>
-                                </tr>
-                            </table>
-                    <table border='0' style='width:95%; border-collapse: collapse; margin: auto;'>
-                             <tr>
-                                <th width='50%;' style='text-align:left; font-size:17px;'>
-                                    <a style='padding-left:20px;'>ชื่อผู้สั่ง : &nbsp;&nbsp; <a style='padding-left:10px; font-weight:normal;'>{$row1['name_order']} </a><br></a>
-                                    <a style='padding-left:20px;'>ชื่อผู้รับ : &nbsp;&nbsp; <a style='padding-left:10px; font-weight:normal;'>{$row1['name_receive']} </a><br></a>
-                                    <a style='padding-left:20px;'>ชื่อผู้ส่ง : &nbsp;&nbsp; <a style='padding-left:10px; font-weight:normal;'>{$row1['name_bill']} </a><br></a>
-                                    <a style='padding-left:20px;'>หมายเลขกำกับภาษี : <a style='padding-left:10px; font-weight:normal;'>{$row1['tax_no']} </a><br></a>
-                                    <a style='padding-left:20px;'>ที่อยู่จัดส่ง :&nbsp;&nbsp; <a style=' padding-left:10px; font-weight:normal;'>{$row1['address']} </a><br></a>
-                                    <a style='padding-left:20px;'>หมายเลขโทรศัพท์ : &nbsp;&nbsp;<a style='padding-left:10px; font-weight:normal;'>{$row1['tel']} </a><br></a>
-                                </th>
+                
+                    <table border='0' style='width: 95%; border-collapse: collapse; margin: auto; padding-top: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
+                        <tr style='background-color: #0A2647; color: white; text-align: center;'>
+                            <th width='100px;'></th>
+                            </tr>
+                    </table>
 
-                                <th width='21%;' style='padding-right:20px; text-align:right; font-size:17px;'>
-                                <br/><br/><br/><br/>
-                                    <a>วันที่สั่ง : <a style='font-weight:normal;'>{$row1['order_date']}</a><br></a>
-                                    <a>วันที่ส่ง : <a style='font-weight:normal;'>{$row1['shipping_date']}</a><br></a>
-                                    <a>วันที่รับ : <a style='font-weight:normal;'>{$row1['receive_date']}</a><br></a>
+                    <table border='0' style='width :95%; border-collapse: collapse; margin: auto;'>
+                             <tr>
+                                <th width='60%;' style='text-align: left;'>
+                                    <a>ชื่อผู้สั่ง / customer :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
+                                    <a>ชื่อผู้รับ :   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_receive']} </a><br></a>
+                                    <a>ที่อยู่ / Address :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
+                                    <a>เลขผู้เสียภาษี / TAX ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tax_no']} &nbsp;&nbsp;E: </a><br></a>
+                                    <a>ชื่อผู้ส่ง / Attention :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']}&nbsp;&nbsp;T: {$row1['tel']} </a><br></a>
+                                </th>
+                                <th width='20%;' style='text-align: left; padding-bottom:80px;'>
+                                    <a>เลขคำสั่งซื้อ : <a style='font-weight: normal; '>{$row1['order_id']}</a><br></a>
+                                    <a>วันที่สั่ง : <a style='font-weight: normal;'>{$row1['order_date']}</a><br></a>
+                                    
                                 </th>
                             </tr>
-                        </table>
+                                    
+                    </table>
+                    <hr width= '95%;' />
+                    
+                    <table border='0' style='width :95%; border-collapse: collapse; margin: auto;'>
+                                <th width='30%;' style=' text-align: left;'>
+                                    <a>ผู้ออก : Beluga Group (th) Co.,ltd</a><br>
+                                    <a style='font-weight: normal;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร <br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; โทร 02-888-8888</a>
 
-                        <hr width='95%;' />
+                                </th>
 
-                        <table border='0' style='width: 95%; margin: auto; font-size:17px;'>
+                                <th width='24%;' style=' text-align: left; position: absolute; top: 405px; right: 230px;'>
+                                    <a>เลขผู้เสียภาษี / TAX ID  : <a style='font-weight: normal;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1552515</a><br></a>
+                                    <a>จัดเตรียมโดย / Prepared by : <a style='font-weight: normal;'> &nbsp;Nattakrit Klindokkeaw</a><br></a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>T:25 <br/></a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E: 63050121@kmitl.ac.th</a><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>W: https://owen.com</a><br></a>
+                                </th>
+                       </table>
+
+                        <hr width= '95%;' />
+
+                        <table border='0' style='width :95%; border-collapse: collapse; margin: auto;'>
                             <tr>
-                                <th width='60%;' style='text-align:left;'><a style='font-weight: bold;'>รายการที่สั่งซื้อ</a></th>
-                                <th width='8%;' style='text-align:center;'><a style='font-weight: bold;'>จำนวน</a></th>
-                                <th width='13%;' style='text-align:center;'><a style='font-weight: bold;'>ราคาต่อหน่วย</a></th>
-                                <th width='10%;' style='text-align:center;'><a style='font-weight: bold;'>ราคารวม</a></th>
+                                <th width='60%;' style='padding: 10px; text-align: left;'><a style='font-weight: bold;'>รายการที่สั่งซื้อ</a></th>
+                                <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>จำนวน</a></th> 
+                                <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคาต่อหน่วย</a></th>
+                                <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ภาษี</a></th>
+                                <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคารวม</a></th>
                             </tr>";
 
         $sql = "SELECT d.id, d.order_id, d.amount, d.total_price,p.product_name, p.product_price
@@ -126,10 +156,11 @@ if (!empty($orders)) {
                 $line++;
 
                 $html .= "<tr>
-                                            <th width='60%;' style='padding: 2px; text-align:left;'><a style='font-weight: normal;'>$line . $name1</a></th>
-                                            <th width='8%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'>$name2</a></th> 
-                                            <th width='13%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'>$name3</a></th>
-                                            <th width='10%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal; '>$name4</a></th>
+                                            <th width='60%;' style=' text-align: left;'><a style='font-weight: normal;'>$line . $name1</a></th>
+                                            <th width='8%;' style=' text-align: center;'><a style='font-weight:normal;'>$name2</a></th> 
+                                            <th width='13%;' style=' text-align: center;'><a style='font-weight:normal;'>$name3</a></th>
+                                            <th width='13%;' style=' text-align: center;'><a style='font-weight:normal;'>7%</a></th>
+                                            <th width='10%;' style=' text-align: center;'><a style='font-weight:normal; '>$name4</a></th>
                                         </tr>";
             }
             $stmt->close();
@@ -137,25 +168,33 @@ if (!empty($orders)) {
             die("Error executing SQL query: " . $stmt->error);
         }
 
-        $html .= "<tr>
-                                            <th width='60%;' style='padding: 2px; text-align:left;'><a style='font-weight: normal;'>vat</a></th>
-                                            <th width='8%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th> 
-                                            <th width='13%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th>
-                                            <th width='10%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal; '>7%</a></th>
-                                        </tr>";
+        // $html .= "<tr>
+        //                                     <th width='60%;' style='padding: 2px; text-align:left;'><a style='font-weight: normal;'>vat</a></th>
+        //                                     <th width='8%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th> 
+        //                                     <th width='13%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th>
+        //                                     <th width='10%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal; '>7%</a></th>
+        //                                 </tr>";
         $html .= "<tr>
                                             <th width='60%;' style='padding: 2px; text-align:left;'><a style='font-weight: normal;'>shipping cost</a></th>
                                             <th width='8%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th> 
+                                            <th width='13%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th>
                                             <th width='13%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal;'></a></th>
                                             <th width='10%;' style='padding: 2px; text-align:center;'><a style='font-weight:normal; '>{$row1['shipping_cost']}</a></th>
                                         </tr>";
         $html .= "</table>";
 
-        $html .= "<table border='0' style='width :95%; border-collapse: collapse; margin: auto; font-size:17px;'>
+        $html .= "  <hr width= '95%;' /> <table border='0' style='width :95%; border-collapse: collapse; margin: auto;'>
                         <tr>
-                            <th width='60%;' style='padding: 2px; text-align:left; '>จำนวนรวมทั้งสิ้น</th>
-                            <th width='20%;' style='padding: 10px; text-align:center; font-weight: normal;'>{$row1['amount']} รายการ</th>
-                            <th width='20%;' style='padding: 10px; text-align:right; font-weight: normal;'>{$row1['total_price']} บาท</th>
+                            <th width='60%;' style='text-align: left; '>ราคาสุทธิสินค้าที่เสียภาษี</th>
+                            <th width='20%;' style='text-align: center; font-weight: normal;'>$name3 บาท</th>
+                    
+                        </tr>
+                        <tr>
+                            <th width='60%;' style='text-align: left; '>ภาษีมูลค่าเพิ่ม(บาท)/VAT</th>
+                        </tr>
+                        <tr>
+                            <th width='60%;' style='text-align: left; '>จำนวนรวมทั้งสิ้น</th>
+                            <th width='20%;' style='text-align: center; font-weight: normal;'>$name4 บาท</th>
                         </tr>
                     </table>";
     }

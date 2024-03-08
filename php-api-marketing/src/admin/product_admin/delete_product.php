@@ -1,5 +1,6 @@
 <?php
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

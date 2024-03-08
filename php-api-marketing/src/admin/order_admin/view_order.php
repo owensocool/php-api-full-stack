@@ -135,7 +135,7 @@
         $result = $conn->query($query);
 
         if ($result) {
-        echo "<br/> <br/>
+        echo "<br/> <br/> <br/> <br/> <br/> <br/>
                 <table border='0' style='width: 90%; margin: auto;'>
                 <tr>
                     <td width='950px'><a style='font-weight:bold; font-size: 22px;' >รายการออเดอร์</a></td>
