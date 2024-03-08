@@ -145,14 +145,11 @@
         require_once '../../../config/db/connection.php';
         if(isset($_GET['selected_date'])) {
             $selected_date = $_GET['selected_date'];
-            // Query to select orders for the selected date
             $query = "SELECT * FROM orders WHERE DATE(order_date) = '$selected_date'";
         } else {
-            // Default query to select all orders
             $query = "SELECT * FROM orders";
         }
         $result = $conn->query($query);
-        
         
 
         if ($result) {
