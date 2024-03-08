@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beluga Phone Phone Shop</title>
+    
     <style>
         body {
             margin: 0;
@@ -126,21 +127,39 @@
         <div></div>
         
         <a href="../../auth/controller/logout.php"><button class="login-btn">ออกจากระบบ</button></a>
+        
     </header>
+    <br/> <br/><br/> <br/><br/>
+    <div style="text-align: center;">
+    <form id="dateForm" method="GET">
+        <label for="selected_date">Select Date:</label>
+        <input type="date" id="selected_date" name="selected_date" value="<?php echo isset($_GET['selected_date']) ? htmlspecialchars($_GET['selected_date']) : date('Y-m-d'); ?>">
+        <button type="submit">View Orders</button>
+    </form>
+</div>
+
+
 
     <div>
         <?php
         require_once '../../../config/db/connection.php';
-        $query = " SELECT * FROM orders";
+        if(isset($_GET['selected_date'])) {
+            $selected_date = $_GET['selected_date'];
+            // Query to select orders for the selected date
+            $query = "SELECT * FROM orders WHERE DATE(order_date) = '$selected_date'";
+        } else {
+            // Default query to select all orders
+            $query = "SELECT * FROM orders";
+        }
         $result = $conn->query($query);
+        
+        
 
         if ($result) {
-        echo "<br/> <br/> <br/> <br/> <br/> <br/>
+        echo "
                 <table border='0' style='width: 90%; margin: auto;'>
                 <tr>
                     <td width='950px'><a style='font-weight:bold; font-size: 22px;' >รายการออเดอร์</a></td>
-                    <!--<td width='270px'><a style='font-weight:bold; margin-left:40px;'>เพิ่มรายการออเดอร์ใหม่ ->></a></td>
-                    <td width='140px'> <a href='add_product.html'><button type='button' style=' background-color: #0B60B0; color: white; padding: 12px; border: none; border-radius: 5px;  cursor: pointer;'>+ เพิ่มออเดอร์ใหม่</button></a></td> -->
                 </tr>
                 </table>
         <br />";
@@ -226,9 +245,13 @@
                     }
             echo "</table>";
     $result->free();
-} else {
-    echo "Error: " . $conn->error;
-}
+    } else {
+        echo "Error: " . $conn->error;
+    }
+
+
+
+
 
 $conn->close();
 ?>
@@ -262,6 +285,7 @@ $conn->close();
                     }
                 }
     </script>
+
 </body>
 
 </html>

@@ -13,10 +13,12 @@
         header {
             background: linear-gradient(to right, #0A2647, #144272, #205295);
             color: #fff;
+            width: 100%;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
         }
 
         .logo {
@@ -95,7 +97,7 @@
         $result = $conn->query($query);
 
         if ($result) {
-        echo "<br/> <br/>
+        echo "<br/> <br/> <br/> <br/> <br/>
                 <table border='0' style='width: 1250px; margin: auto;'>
                 <tr>
                     <td width='950px'><a style='font-weight:bold; font-size: 22px;' >รายการสินค้า</a></td>
@@ -171,10 +173,6 @@
 $conn->close();
 ?>
 </div>
-
-    <footer>
-        &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
-    </footer>
 
 </body>
 </html>
