@@ -113,7 +113,7 @@
 <body>
 
     <header>
-        <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
+        <div class="logo"><img src="../../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
             <a href="../../../home/index.php">หน้าหลัก</a>
             <a href="../../product_admin/product_view/view_product.php">จัดการสินค้า</a>

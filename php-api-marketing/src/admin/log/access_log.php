@@ -1,11 +1,10 @@
 <?php
 session_start();
-require_once '../../../config/db/connection.php';
+include_once '../../../config/db/connection.php';
 
-// Assuming $db_connection is already established in connection.php
 function logMessage($message) {
     
-    global $conn; // Assuming $conn is your PDO connection variable
+    global $conn;
     $username = $_SESSION['username'];
     $timestamp = date('Y-m-d H:i:s');
     $userIP = file_get_contents("https://ipv4.icanhazip.com/");

@@ -154,7 +154,7 @@
                     </td>
 
                     <td style='padding: 5px; cursor: pointer;'>
-                        <form method='post' action='delete_product.php'>
+                        <form method='post' action='../product_controller/delete_product.php'>
                             <input type='hidden' name='product_id' value='$name1'>
                             <button type='submit' style='border: none; background: none; cursor: pointer;'>
                                 <img src='../../../../public/Bin-50.png' width='120%' alt='delete'>
