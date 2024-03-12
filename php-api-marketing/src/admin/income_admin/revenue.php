@@ -166,19 +166,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-     <header>
+      <header>
         <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
-            <a href="../../customer/home/index.php">หน้าหลัก</a>
-            <a href="..\product_admin\view_product.php">จัดการสินค้า</a>
-            <a href="..\order_admin\view_order.php">จัดการออเดอร์</a>
-            <a href="..\customer_admin\view_customer.php">จัดการลูกค้า</a>
-            <a href="revenue.php">รายรับ</a>
+            <a href="../../home/index.php">หน้าหลัก</a>
+            <a href="../../admin/product_admin/product_view/view_product.php">จัดการสินค้า</a>
+            <a href="../../admin/order_admin/order_view/view_order.php">จัดการออเดอร์</a>
+            <a href="../../admin/customer_admin/customer_view/view_customer.php">จัดการลูกค้า</a>
+            <a href="../../admin/income_admin/revenue.php">รายรับ</a>
         </nav>
-       <div></div>
-        
+        <div></div>
         <a href="../../auth/controller/logout.php"><button class="login-btn">ออกจากระบบ</button></a>
     </header>
+
 
     <div>
         <br /><br/><br/>

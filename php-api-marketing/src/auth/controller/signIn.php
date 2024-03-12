@@ -27,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $row['username'];
 
                 if ($role == "admin") {
-                    header("Location: ../../customer/home/index.php"); // Redirect to admin page
+                    header("Location: ../../home/index.php"); // Redirect to admin page
                     $message = "admin login success";
                 } else {
-                    header("Location: ../../customer/home/index.php"); // Redirect to user page
+                    header("Location: ../../home/index.php"); // Redirect to user page
                     $message ="customer login success";
                 }
             logMessage($message);    
