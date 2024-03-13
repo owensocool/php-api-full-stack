@@ -115,7 +115,6 @@
                     <th width='150px' style='padding: 10px;'>Price</th>
                     <th width='150px' style='padding: 10px;'>Stock</th>
                     <th width='150px' style='padding: 10px;'>Status</th>
-                    <th width='200px' style='padding: 10px;'>หมายเหตุ</th>
                     <th width='200px' style='padding: 10px;'>Last Update</th>
                     <th width='40px' style='padding: 10px;'>U</th>
                     <th width='40px' style='padding: 10px;'>D</th>
@@ -141,7 +140,6 @@
                     <td style='padding: 10px; cursor: pointer; text-align:center;'>$name6</td>
                     <td style='padding: 10px; cursor: pointer; text-align:center;'>$name7</td>
                     <td style='padding: 10px; cursor: pointer; text-align:center;'>$name8</td>
-                    <td style='padding: 10px; cursor: pointer; text-align:center;'>$name9</td>
                     <td style='padding: 10px; cursor: pointer; text-align:center;'>$name10</td>
 
                     <td style='padding: 5px; cursor: pointer;'>

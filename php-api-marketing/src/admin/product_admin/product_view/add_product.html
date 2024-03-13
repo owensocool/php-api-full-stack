@@ -70,6 +70,7 @@
         bottom: 0;
         width: 100%;
       }
+
     </style>
   </head>
 
@@ -93,9 +94,9 @@
     <center>
     <br/>
     <h2>เพิ่มข้อมูลสินค้าใหม่</h2>
-      <form method="post" action="../product_controller/add_product.php" enctype="multipart/form-data">
+      <form id="uploadForm" method="post" action="../product_controller/add_product.php" enctype="multipart/form-data">
         <table>
-          <tr style="background-color: #AA77FF">
+          <tr style="background-color: #0A2647">
             <td
               width="1000px"
               style="padding: 10px; font-weight: bold; color: white"
@@ -106,7 +107,7 @@
         </table>
         <table width="1000px" border="0">
           <tr >
-            <td width="100px" style="padding: 5px; font-weight: bold">รหัสสินค้า<a style="color:red;"> *</a></td>
+            <!--<td width="100px" style="padding: 5px; font-weight: bold">รหัสสินค้า<a style="color:red;"> *</a></td>
             <td>
               <input
                 type="text"
@@ -123,7 +124,7 @@
                   background-color: #EEEEEE;
                 "
               />
-            </td>
+            </td>-->
             <td width="100px" style="padding:5px; font-weight: bold">ชื่อสินค้า<a style="color:red;"> *</a></td>
             <td>
               <input
@@ -141,9 +142,54 @@
                 "
               />
             </td>
+
+            <td width="100px" style="padding: 0px; font-weight: bold">ประเภทสินค้า<a style="color:red;"> *</a></td>
+            <td>
+              <select
+                name="type"
+                required
+                style="
+                  width: 95%;
+                  padding: 8px;
+                  margin: 10px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  box-sizing: border-box;
+                  background-color: #EEEEEE;
+                "
+              >
+                <option value="" selected disabled hidden>ประเภทสินค้า</option>
+                <option value="smart phone">smart phone</option>
+                <option value="cable charge">cable charge</option>
+                <option value="headset">headset</option>
+                <option value="case">case</option>
+                <option value="film">film</option>
+                <option value="tablet">tablet</option>
+                <option value="gaming gadget">gaming gadget</option>
+              </select>
+             </td>
+
           </tr>
 
            <tr >
+             <td width="100px" style="padding: 5px; font-weight: bold">รุ่นสินค้า<a style="color:red;"> *</a></td>
+            <td>
+              <input
+                type="text"
+                name="model"
+                required
+                style="
+                  width: 95%;
+                  padding: 8px;
+                  margin: 10px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  box-sizing: border-box;
+                  background-color: #EEEEEE;
+                "
+              />
+            </td>
+
             <td width="100px" style="padding: 5px; font-weight: bold">ราคาสินค้า<a style="color:red;"> *</a></td>
             <td>
               <input
@@ -161,43 +207,10 @@
                 "
               />
             </td>
-            <td width="100px" style="padding:0px; font-weight: bold">ประเภทสินค้า<a style="color:red;"> *</a></td>
-            <td>
-              <input
-                type="text"
-                name="type"
-                required
-                style="
-                  width: 95%;
-                  padding: 8px;
-                  margin: 10px;
-                  border: 1px solid #ccc;
-                  border-radius: 4px;
-                  box-sizing: border-box;
-                  background-color: #EEEEEE;
-                "
-              />
-            </td>
           </tr>
 
           <tr >
-            <td width="100px" style="padding: 5px; font-weight: bold">โมเดล</td>
-            <td>
-              <input
-                type="text"
-                name="model"
-                style="
-                  width: 95%;
-                  padding: 8px;
-                  margin: 10px;
-                  border: 1px solid #ccc;
-                  border-radius: 4px;
-                  box-sizing: border-box;
-                  background-color: #EEEEEE;
-                "
-              />
-            </td>
-            <td width="100px" style="padding:5px; font-weight: bold">จำนวนที่เพิ่ม<a style="color:red;"> *</a></td>
+           <td width="100px" style="padding:0px; font-weight: bold">จำนวนที่เพิ่ม<a style="color:red;"> *</a></td>
             <td>
               <input
                 type="integer"
@@ -214,51 +227,10 @@
                 "
               />
             </td>
-          </tr>
-
-           <tr >
-            <td width="100px" style="padding: 5px; font-weight: bold">หมายเหตุ</td>
+            <td width="100px" style="padding: 5px; font-weight: bold">รูปภาพสินค้า<a style="color:red; font-size:12px;"> png jpeg *</a></td>
             <td>
               <input
-                type="text"
-                name="mark"
-                style="
-                  width: 95%;
-                  padding: 8px;
-                  margin: 10px;
-                  border: 1px solid #ccc;
-                  border-radius: 4px;
-                  box-sizing: border-box;
-                  background-color: #EEEEEE;
-                "
-              />
-            </td>
-            <td width="100px" style="padding:5px; font-weight: bold">สถานะสินค้า<a style="color:red;"> *</a></td>
-            <td>
-             <select
-                name="product_status"
-                required
-                style="
-                    width: 95%;
-                    padding: 8px;
-                    margin: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    box-sizing: border-box;
-                    background-color: #EEEEEE;
-                "
-            >
-                <option value="in_stock">มีสต็อกพร้อมส่ง</option>
-                <option value="out_stock">หมดสต็อกรอสินค้า</option>
-            </select>
-            </td>
-          </tr>
-
-           <tr >
-            <td width="100px" style="padding: 5px; font-weight: bold">เพิ่มรูปภาพ<a style="color:red;"> *</a></td>
-            <td>
-              <input
-                type="file" name="image" id="image"
+                type="file" name="image" id="image" accept="image/*"
                 required
                 style="
                     width: 95%;
@@ -272,9 +244,21 @@
             />
             </td>
           </tr>
-          
-          
-        </table>
+
+           
+          <tr>
+              <td width="100px" style="padding:5px; font-weight: bold"></td>
+              <td></td>
+
+              <td width="100px" style="padding:5px; font-weight: bold">แสดงรูปภาพ</td>
+              <td>
+                  <div id="imagePreview" style="display:none; align-items: start;">
+                    <img id="previewImage" src="#" alt="Preview Image" style="max-width: 300px; max-height: 300px;">
+                  </div>
+              </td>
+
+          </tr>
+      </table>
 
 
         <br />
@@ -306,6 +290,21 @@
           "
         />
       </form>
+
+
     </center>
+        <script>
+            document.getElementById('image').addEventListener('change', function(e) {
+              var file = e.target.files[0];
+              if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  document.getElementById('imagePreview').style.display = 'block';
+                  document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+              }
+            });
+    </script>
   </body>
 </html>

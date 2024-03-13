@@ -309,7 +309,7 @@ else{
                 
                 <input
                 type="button"
-                value="ยืนยังสั่งสินค้า"
+                value="ชำระเงิน"
                 style="
                     width: 150px;
                     background-color: #65B741;

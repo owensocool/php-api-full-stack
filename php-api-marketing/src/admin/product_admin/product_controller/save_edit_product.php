@@ -1,6 +1,6 @@
 <?php
 require_once '../../../../config/db/connection.php';
-require_once '../../log/access_log.php';
+include_once '../../log/access_log.php';
 
 $product_id = $_POST['product_id'];
 $product_name = $_POST['product_name'];
@@ -33,7 +33,13 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 }
 
 $product_stock = $_POST['product_stock'];
-$product_status = $_POST['product_status'];
+if ($product_stock > 0){
+    $product_status = 'in_stock';
+}
+else{
+    $product_status = 'out_stock';
+}
+
 
 $stmt = $conn->prepare("UPDATE products SET product_name=?, product_price=?, type=?, model=?, mark=?, image_path=?, product_stock=?, product_status=?, last_update=CURRENT_TIMESTAMP WHERE product_id = ?");
 $stmt->bind_param("sssssssss", $product_name, $product_price, $type, $model, $mark, $image_path, $product_stock, $product_status, $product_id);

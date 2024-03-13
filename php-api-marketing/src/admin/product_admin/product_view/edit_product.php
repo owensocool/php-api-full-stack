@@ -115,7 +115,7 @@
         ?>
             <form method="post" action="../product_controller/save_edit_product.php"  enctype="multipart/form-data">
             <table>
-            <tr style="background-color: #AA77FF">
+            <tr style="background-color: #0A2647">
                 <td
                 width="1000px"
                 style="padding: 10px; font-weight: bold; color: white"
@@ -185,13 +185,11 @@
                     "
                 />
                 </td>
-                <td width="100px" style="padding:0px; font-weight: bold">ประเภทสินค้า<a style="color:red;"> *</a></td>
+                <td width="100px" style="padding: 0px; font-weight: bold">ประเภทสินค้า<a style="color:red;"> *</a></td>
                 <td>
-                <input
-                    type="text"
+                <select
                     name="type"
                     required
-                    value="<?php echo $row['type']; ?>"
                     style="
                     width: 95%;
                     padding: 8px;
@@ -201,16 +199,27 @@
                     box-sizing: border-box;
                     background-color: #EEEEEE;
                     "
-                />
+                >
+                    <option value="<?php echo $row['type']; ?>" selected ><?php echo $row['type']; ?></option>
+                    <option value="smart phone">smart phone</option>
+                    <option value="cable charge">cable charge</option>
+                    <option value="headset">headset</option>
+                    <option value="case">case</option>
+                    <option value="film">film</option>
+                    <option value="tablet">tablet</option>
+                    <option value="gaming gadget">gaming gadget</option>
+                </select>
                 </td>
+
             </tr>
 
             <tr >
-                <td width="100px" style="padding: 5px; font-weight: bold">โมเดล</td>
+                <td width="100px" style="padding: 5px; font-weight: bold">รุ่นสินค้า <a style="color:red;"> *</a></td>
                 <td>
                 <input
                     type="text"
                     name="model"
+                    require
                     value="<?php echo $row['model']; ?>"
                     style="
                     width: 95%;
@@ -223,7 +232,7 @@
                     "
                 />
                 </td>
-                <td width="100px" style="padding:5px; font-weight: bold">จำนวนที่เพิ่ม<a style="color:red;"> *</a></td>
+                <td width="100px" style="padding:5px; font-weight: bold">จำนวนสินค้า<a style="color:red;"> *</a></td>
                 <td>
                 <input
                     type="integer"
@@ -243,66 +252,16 @@
                 </td>
             </tr>
 
-            <tr >
-                <td width="100px" style="padding: 5px; font-weight: bold">หมายเหตุ</td>
-                <td>
-                <input
-                    type="text"
-                    name="mark"
-                    value="<?php echo $row['mark']; ?>"
-                    style="
-                    width: 95%;
-                    padding: 8px;
-                    margin: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    box-sizing: border-box;
-                    background-color: #EEEEEE;
-                    "
-                />
-                </td>
-                <td width="100px" style="padding:5px; font-weight: bold">สถานะสินค้า<a style="color:red;"> *</a></td>
-                <td>
-                <select
-                    name="product_status"
-                    required
-                    value="<?php echo $row['product_status']; ?>"
-                    style="
-                        width: 95%;
-                        padding: 8px;
-                        margin: 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                        box-sizing: border-box;
-                        background-color: #EEEEEE;
-                    "
-                >
-                    <option value="in_stock">มีสต็อกพร้อมส่ง</option>
-                    <option value="out_stock">หมดสต็อกรอสินค้า</option>
-                </select>
+            <tr>
+                <td width="100px" style="padding: 5px; font-weight: bold">เปลี่ยนรูปภาพ<a style="color:red; font-size:12px;"> png jpeg *</a></td>
+                    <td>
+                        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(this);" style="width: 95%; padding: 5px; margin: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;" />
                 </td>
             </tr>
-
             <tr>
-                <td width="100px" style="padding: 5px; font-weight: bold">เปลี่ยนรูปภาพ</td>
+                <td width="100px" style="padding: 5px; font-weight: bold"></td>
                 <td>
-                    <input
-                        type="file" name="image" id="image"
-                        style="
-                            width: 95%;
-                            padding: 5px;
-                            margin: 8px;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                            box-sizing: border-box;
-                            background-color: #EEEEEE;
-                        "
-                    />
-                    <?php
-                        if (!empty($row['image_path'])) {
-                            echo "<img src='../../../../public/product/" . $row['image_path'] . "' alt='Current Product Image' style='max-width: 100px;'>";
-                        }
-                    ?>
+                    <img id="preview" src="<?php echo '../../../../public/product/' . $row['image_path']; ?>" alt="Current Product Image" style="max-width: 300px; max-height: 300px; padding:5px;">
                     <!-- Add a hidden input to store the existing image path -->
                     <input type="hidden" name="old_image_path" value="<?php echo $row['image_path']; ?>">
                 </td>
@@ -344,6 +303,19 @@
             }
         ?>
     </center>
+
+     <script>
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>
