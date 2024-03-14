@@ -189,7 +189,7 @@ else{
                 // $result = $stmt->get_result();
                 // if ($result && $row = $result->fetch_assoc()) {
             ?>
-            <form id="customerForm" method="post" action="order_save.php" name="customerForm">
+            <form id="customerForm" method="post" action="../order_controller/order_save.php" name="customerForm">
                 <!-- <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $row['customer_id']; ?>"> -->
                 <label for="name_receive"> ชื่อ-นามสกุล (ผู้สั่ง): </label>
                 <input type="text" id="name_order" name="name_order" require>

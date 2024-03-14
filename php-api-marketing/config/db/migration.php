@@ -30,6 +30,8 @@ $sqlOrders = "
         name_receive VARCHAR(255) NOT NULL,
         name_bill VARCHAR(255) NOT NULL,
         tax_no  VARCHAR(255),
+        email VARCHAR(100),
+        image_path TEXT,
         address VARCHAR(255) NOT NULL,
         tel VARCHAR(14) NOT NULL,
         order_date timestamp,

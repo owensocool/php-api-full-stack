@@ -110,6 +110,53 @@
             color: #333;
         }
 
+        /* Style for modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        /* Modal content */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Modal image */
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+
 
     </style>
 </head>
@@ -136,7 +183,7 @@
         <button type="submit">View Orders</button>
     </form>
 </div>
-
+<br/>
 <!-- Add the search inputs here -->
 <div style="text-align: center;">
         <form id="searchForm" method="GET">
@@ -200,15 +247,18 @@
 
         echo "<table border='0' style='width: 90%; border-collapse: collapse; margin: auto; padding-top: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
             <tr style='background-color: #86B6F6; color: white; text-align: center;'>
+                <th width='30px' style='padding: 10px;'>V</th>
                 <th width='180px' style='padding: 10px;'>รหัสออเดอร์</th>
                 <th width='180px' style='padding: 10px;'>รหัสลูกค้า</th>
                 <th width='200px' style='padding: 10px;'>ชื่อลูกค้า</th>
                 <th width='250px' style='padding: 10px;'>ที่อยู่</th>
+                <th width='250px' style='padding: 10px;'>email</th>
                 <th width='200px' style='padding: 10px;'>เบอร์</th>
                 <th width='100px' style='padding: 10px;'>จำนวน</th>
                 <th width='180px' style='padding: 10px;'>ราคารวม</th>
                 <th width='200px' style='padding: 10px;'>วันที่สั่ง</th>
                 <th width='150px' style='padding: 10px;'>วันที่ส่ง</th>
+                <th width='100px' style='padding: 10px;'>สลิป</th>
                 <th width='300px' style='padding: 10px;'>สถานะ</th>
                 <th width='50px' style='padding: 10px;'>U</th>
                 <th width='50px' style='padding: 10px;'>D</th>
@@ -221,24 +271,39 @@
             $name2 = $row['customer_id'];
             $name3 = $row['name_order'];
             $name4 = $row['address'];
+            $name11 = $row['email'];
             $name5 = $row['tel'];
             $name6 = $row['amount'];
             $name7 = $row['total_price'];
             $name8 = $row['order_status'];
             $name9 = $row['order_date'];
             $name10 = $row['shipping_date'];
+            $name12 = $row['image_path'];
 
             // Display transaction details in table rows
             echo "<tr>
+             <td style='padding: 5px; cursor: pointer; text-align:center;'>
+                            <form method='get' action='view_order_detail.php'>
+                                <input type='hidden' name='order' value='$name1'>
+                                <button type='submit' class='edit-btn'>
+                                    <img src='../../../../public/eye-48.png' alt='Edit'>
+                                </button>
+                            </form></td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name1</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name2</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name3</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name4</td>
+                <td style='padding: 10px; cursor: pointer; text-align:center;'>$name11</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name5</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name6</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name7</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name9</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name10</td>
+                <td style='padding: 10px; cursor: pointer; text-align:center;'>
+                    <div class='img-modal'>
+                        <img src='../../../../public/product/$name12' alt='Image' style='max-width: 100%; max-height: 100px;'>
+                    </div>
+                </td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>";
 
             if ($name8 == 'Cancel') {
@@ -252,6 +317,7 @@
                 </select>";
             }
 
+            
             echo "</td>
                 <td>
                     <form method='post' action='edit_order.php'>
@@ -291,7 +357,29 @@
         echo "Error: " . $conn->error;
     }
     ?>
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
 </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var images = document.querySelectorAll(".img-modal");
+
+        images.forEach(function(image) {
+            image.onclick = function() {
+                modal.style.display = "block";
+                modalImg.src = this.querySelector('img').src;
+            }
+        });
+
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    </script>
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
