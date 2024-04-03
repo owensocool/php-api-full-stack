@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
-$username = 'root';
-$password = '';
+$username = 'admin_annisa';
+$password = 'password';
 $database = 'full-stack-store';
 
 $conn = new mysqli($host, $username, $password, $database);

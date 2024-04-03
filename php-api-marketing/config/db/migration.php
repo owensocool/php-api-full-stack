@@ -30,6 +30,8 @@ $sqlOrders = "
         name_receive VARCHAR(255) NOT NULL,
         name_bill VARCHAR(255) NOT NULL,
         tax_no  VARCHAR(255),
+        email VARCHAR(100),
+        image_path TEXT,
         address VARCHAR(255) NOT NULL,
         tel VARCHAR(14) NOT NULL,
         order_date timestamp,
@@ -120,5 +122,22 @@ if ($conn->query($sqlCart) === TRUE) {
 } else {
     echo "Error creating table: " . $conn->error . "<br>";
 }
+
+// Migrate access log table
+$sqlCart = "
+    CREATE TABLE IF NOT EXISTS access_log (
+    uuid VARCHAR(255) PRIMARY KEY,
+    timestamp timestamp,
+    username VARCHAR(20),
+    ip_address VARCHAR(20),
+    action VARCHAR(255) NOT NULL
+)";
+
+if ($conn->query($sqlCart) === TRUE) {
+    echo "Table 'cart' created successfully<br>";
+} else {
+    echo "Error creating table: " . $conn->error . "<br>";
+}
+
 
 $conn->close();

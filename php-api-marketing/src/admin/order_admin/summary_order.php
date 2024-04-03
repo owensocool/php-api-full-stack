@@ -7,9 +7,7 @@
 
     <header>
         <!-- Logo and navigation links -->
-        
         <a href="../../auth/controller/logout.php"><button class="login-btn">ออกจากระบบ</button></a>
-
         <!-- Add the button here -->
         <a href="add_order.php"><button class="login-btn">+ เพิ่มออเดอร์ใหม่</button></a>
     </header>

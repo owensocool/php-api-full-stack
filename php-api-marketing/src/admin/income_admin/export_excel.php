@@ -1,6 +1,8 @@
 <?php
 // Database connection
 require_once '../../../config/db/connection.php';
+require_once '../log/access_log.php';
+
 
 // Query to retrieve revenue data from the database
 $sql = "SELECT order_id, amount, total_price, order_date FROM orders";

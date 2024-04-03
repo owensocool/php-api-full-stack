@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beluga Phone Phone Shop</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: linear-gradient(to right, #0B60B0, #B4BDFF, #86B6F6);
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+            padding-left: 30px;
+            margin-right: 10px;
+        }
+
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding-right: 30px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .login-btn { 
+            margin-right: 30px;
+            margin-left: auto;
+            padding: 10px 16px;
+            background-color: #176B87;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+
+        footer {
+            background: linear-gradient(to right, #092635, #5C8374, #1B4242);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .edit-btn, .delete-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .edit-btn img, .delete-btn img {
+            width: 70%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><img src="../../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
+        <nav>
+            <a href="../../../home/index.php">หน้าหลัก</a>
+            <a href="../../product_admin/product_view/view_product.php">จัดการสินค้า</a>
+            <a href="../../order_admin/order_view/view_order.php">จัดการออเดอร์</a>
+            <a href="../../customer_admin/customer_view/view_customer.php">จัดการลูกค้า</a>
+            <a href="../../income_admin/revenue.php">รายรับ</a>
+        </nav>
+        <div></div>
+        <a href="../../../auth/controller/logout.php"><button class="login-btn">ออกจากระบบ</button></a>
+    </header>
+
+    <center>
+    <br/>
+    <h2>เพิ่มข้อมูลลูกค้าใหม่</h2>
+        <br/>
+        <form method="post" action="../customer_controller/add_customer.php">
+            <table> <tr style='background-color: #3A4D39;'>
+                    <td width='500px' style='padding: 10px; font-weight: bold; color: white; '>ข้อมูลลูกค้าใหม่</td>
+                </tr>
+            </table>
+            <table width='500px'>
+                <tr>
+                    <td width='100px' style='padding: 10px; font-weight: bold;'>รหัสลูกค้า<a style="color:red;"> *</a></td>
+                    <td><input type="text" name="customer_id" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"></td>
+                </tr>
+                <tr>
+                    <td width='100px' style='padding: 10px; font-weight: bold;'>ชื่อ-นามสกุล<a style="color:red;"> *</a></td>
+                    <td><input type="text" name="name" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"></td>
+                </tr>
+               
+                <tr>
+                    <td width='100px' style='padding: 10px; font-weight: bold;'>เพศ<a style="color:red;"> *</a></td>
+                    <td>
+                        <select name="sex" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;">
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">ชาย</option>
+                            <option value="female">หญิง</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width='100px' style='padding: 10px;font-weight: bold;'>ที่อยู่<a style="color:red;"> *</a></td>
+                    <td><input type="text" name="address" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"></td>
+                </tr>
+                <tr>
+                    <td width='100px' style='padding: 5px; font-weight: bold;'>เบอร์โทรศัพท์<a style="color:red;"> *</a></td>
+                    <td><input type="text" name="tel" required style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"></td>
+                </tr>
+                <tr>
+                    <td width='100px' style='padding: 10px;font-weight: bold;'>E-mail<a style="color:red;"> *</a></td>
+                    <td><input type="text" name="email" style="width: 95%; padding: 8px; margin: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #EEEEEE;"></td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="ยืนยัน" style="width: 150px; background-color: #3A4D39; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+            <input type="button" onclick="window.location.href='view_customer.php'" value="ยกเลิก" style="width: 150px; background-color: #B06161; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+        </form>
+    </center>
+    
+
+    <footer>
+        &copy; 2024 Beluga Phone Phone Shop. All rights reserved.
+    </footer>
+
+</body>
+</html>
