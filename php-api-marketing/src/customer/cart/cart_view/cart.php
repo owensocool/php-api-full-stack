@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['user_id'] = 'guess';
-}
-
 $user_id = $_SESSION['user_id'];
 
 include_once '../../../../config/db/connection.php';
@@ -16,7 +11,6 @@ $stmt->bind_param('s', $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $cartItems = $result->fetch_all(MYSQLI_ASSOC);
-
 // Close the statement and database connection
 $stmt->close();
 
@@ -183,7 +177,7 @@ $stmt->close();
         <a class="login-btn"></a>
     </header>
 
-     <?php
+    <?php
     echo "<br/> <br/>
         <table border='0' style='width: 90%; margin: auto;'>
         <tr>

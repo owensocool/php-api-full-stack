@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../../vendor/autoload.php';
-require_once '../log/access_log.php';
+include_once '../../../../vendor/autoload.php';
+//require_once '../../log/access_log.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -14,8 +14,8 @@ $options->set('isRemoteEnabled', true);
 
 $dompdf = new Dompdf($options);
 
-require_once ('../../../config/db/connection.php');
-require_once '../../customer/order/order_operator.php';
+require_once ('../../../../config/db/connection.php');
+require_once ('../../../customer/order/order_controller/order_operator.php');
 
 $order_id = isset($_GET['order']) ? $_GET['order'] : '';
 $orders = orderDetail($order_id);
@@ -55,7 +55,6 @@ $html = <<<HTML
 <body>
 <div>    
 HTML;
-
 if (!empty($orders)) {
     foreach ($orders as $row1) {
         $html .= "<hr width= '95%;' /><table border='0' style='width:95%; border-collapse: collapse; margin: auto;'>
@@ -200,8 +199,7 @@ if (!empty($orders)) {
     }
 }
 
-$html .= " </div> </body>
-</html>";
+$html .= " </div> </body></html>";
 
 // Load HTML into Dompdf
 $dompdf->loadHtml($html);

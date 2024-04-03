@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['user_id'] = 'guest';
+    $_SESSION['role'] = 'guest';
+}
+
+
 require_once ('../../config/db/connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -39,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,23 +55,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="./../../public/style/styles.css">
 </head>
 <body>
-    <div id="header"></div>
+    <!-- <div id="header"></div> -->
+    <?php include '../header.php';?>
     <main>
-            <img src="../../public/beluga_cover.jpg"/>
+            <img src="../../public/beluga_cover1.png"/>
     </main>
 
 
     <div class="button-container">
 
         <?php
-        if((isset($_SESSION['user_id']) || isset($_SESSION['user_id']) !== 'guess') && isset($_SESSION['role']) == 'admin') {
+        echo $_SESSION['role'];
+
+        if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             echo '<div style="padding-top:30px;">
             <a href="../admin/product_admin/product_view/view_product.php" class="admin-link">หน้าแอดมิน</a></div>';
         }  
 
-        else if(!isset($_SESSION['user_id']) || $_SESSION['user_id'] === 'guess') {
-        echo "<div style='padding-left:80px; padding-right:60px; padding-top:30px;'>
-        <div class='card-container'>";
+        else if(isset($_SESSION['user_id']) && isset($_SESSION['role']) !== 'admin') {
+            echo "<div style='padding-left:80px; padding-right:60px; padding-top:30px;'>
+            <div class='card-container'>";
           
             require_once '../../config/db/connection.php';
 
@@ -103,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->close();
-            }
+        }
     ?> 
     </div>
 <script>

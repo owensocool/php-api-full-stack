@@ -301,7 +301,7 @@
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>$name10</td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>
                     <div class='img-modal'>
-                        <img src='../../../../public/product/$name12' alt='Image' style='max-width: 100%; max-height: 100px;'>
+                        <img src='../../../../public/slips/$name12' alt='Image' style='max-width: 100%; max-height: 100px;'>
                     </div>
                 </td>
                 <td style='padding: 10px; cursor: pointer; text-align:center;'>";
@@ -387,7 +387,7 @@
         function updateOrderStatus(status, orderId) {
             $.ajax({
                         type: 'POST',
-                        url: './change_status.php',
+                        url: '../order_controller/change_status.php',
                         data: {
                             status: status,
                             orderId: orderId

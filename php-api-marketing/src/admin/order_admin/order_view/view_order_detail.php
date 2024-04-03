@@ -191,10 +191,9 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; โทร 02-888-8888</a></th>
                                 </th>
 
-                                <th width='20%;' style='padding: 10px; position: absolute; top: 200px; right: 250px;'>
-                                    <a>วันที่สั่ง : <a style='font-weight: normal;'>{$row1['order_date']}</a><br></a>
-                                    <a>วันที่ส่ง : <a style='font-weight: normal;'>{$row1['shipping_date']}</a><br></a>
-                                    <a>วันที่รับ : <a style='font-weight: normal;'>{$row1['receive_date']}</a><br></a>
+                                <th width='20%;' style='padding: 10px; position: absolute; top: 200px; right: 300px;'>
+                                    <a>เลขออเดอร์ : <a style='font-weight: normal;'>{$row1['order_id']}</a><br></a>
+                                    <a>วันเวลาที่สั่ง : <a style='font-weight: normal; top:50px;'>{$row1['order_date']}</a><br></a>
                                 </th>
 
                                 <th width='30%;' style='padding: 10px; text-align: start; position: absolute; top: 405px; right: 230px;'>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include_once '../../../config/db/connection.php';
 
 function logMessage($message) {

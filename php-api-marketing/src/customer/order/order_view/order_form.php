@@ -128,10 +128,11 @@ else{
         }
 
         .container {
-            width: 50%;
-            padding: 20px;
+            width: 40%;
+            padding: 10px;
             margin: auto;
             padding-top:80px;
+            padding-bottom: 80px;
         }
 
         form {
@@ -175,24 +176,18 @@ else{
 
    <div class="container">
         <div id="page1" class="page">
-            <table border='0' style='width: 100%; border-collapse: collapse; margin: auto; padding-top: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
+            <table border='1' style='width: 100%; border-collapse: collapse; margin: auto; padding-top: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
                     <tr style='background-color: #0A2647; color: white; text-align: center;'>
                         <th width='200px;' style='padding: 10px;' >Customer Information</th>
                     </tr>
             </table>
             <?php
                 require_once '../../../../config/db/connection.php';
-
-                // $stmt = $conn->prepare("SELECT * FROM customer WHERE user_id = ?");
-                // $stmt->bind_param("s", $user_id);
-                // $stmt->execute();
-                // $result = $stmt->get_result();
-                // if ($result && $row = $result->fetch_assoc()) {
             ?>
-            <form id="customerForm" method="post" action="../order_controller/order_save.php" name="customerForm">
+        <form id="customerForm" method="post" action="../order_controller/order_save.php" name="customerForm" enctype="multipart/form-data">
                 <!-- <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $row['customer_id']; ?>"> -->
                 <label for="name_receive"> ชื่อ-นามสกุล (ผู้สั่ง): </label>
-                <input type="text" id="name_order" name="name_order" require>
+                <input type="text" id="name_order" name="name_order" required>
                 <label for="name_receive"> ชื่อ-นามสกุล (ผู้รับ): </label>
                 <input type="text" id="name_receive" name="name_receive" required>
                 <label for="email">Email:</label>
@@ -206,28 +201,34 @@ else{
                 <label for="tax_no">หมายเลขประจำตัวผู้เสียภาษี (ถ้ามี):</label>
                 <input type="text" id="tax_no" name="tax_no" >
                 <input type="hidden" name="cart_items" value="<?php echo htmlspecialchars(json_encode($cartItems)); ?>">
-                
-                <!-- <center>
-                <input
-                type="submit"
-                value="ถัดไป"
-                style="
-                    width: 150px;
-                    background-color: #0A2647;
-                    color: white;
-                    padding: 10px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                "
-                onclick="nextPage()"
-                /></center> -->
-            </form>
-              <?php
-                // } else {
-                //     echo "Error fetching customer data";
-                // } 
-            ?>
+        </div>
+
+        <div style='padding-top: 20px;'>
+        <table border='0' style='width: 100%; border-collapse: collapse; margin: auto; padding-top: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
+                    <tr style='background-color: #0A2647; color: white; text-align:center;'>
+                        <th style='padding: 10px;width:100px;' >การชำระเงิน</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                     <tr>
+                        <td style='padding: 2px; text-align:center;'>
+                            <img src='../../../../public/qr.jpg' alt='QR Image' width='100%'>
+                              
+                        </td>
+                                <td style='width:80px; padding: 30px; text-align:left;'>ชำระด้วย QR Code </td>
+                                <td style='width:120px; padding: 10px; text-align:center;'>
+                                    <label for="image">กรุณาอัพโหลดสลิป</label>
+                                    <input type="file" id="image" name="image" accept="image/*" required>
+                                </td>
+                        <td style='width:140px; padding: 2px; text-align:center;'>
+                                <div id="imagePreview" style="display:none; align-items: start;">
+                                <img id="previewImage" src="#" alt="Preview Image" style="max-width: 150px; max-height: 150px;">
+                         </div>
+                        </td>
+                    </tr>
+        </table>
+        </form>
         </div>
 
         <div id="page2" class="page">
@@ -304,12 +305,12 @@ else{
                     cursor: pointer;
                     margin-right: 10px;
                 "
-                onclick="window.location.href='../controller/cart.php'"
+                onclick="window.location.href='../../cart/cart_view/cart.php'"
                 />
-                
+
                 <input
                 type="button"
-                value="ชำระเงิน"
+                value="ยืนยันคำสั่งซื้อ"
                 style="
                     width: 150px;
                     background-color: #65B741;
@@ -338,9 +339,41 @@ else{
     // }
 
     function submitForm() {
+        var nameOrder = document.getElementById('name_order').value.trim();
+        var nameReceive = document.getElementById('name_receive').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var tel = document.getElementById('tel').value.trim();
+        var address = document.getElementById('address').value.trim();
+        //var nameBill = document.getElementById('name_bill').value.trim();
+        var slip = document.getElementById('image')
+
+        if (nameOrder === '' || nameReceive === '' || email === '' || tel === '' || address === '') {
+            alert('Please fill in all required fields.');
+            return false;
+        }
+
+        // Check if a file has been uploaded
+        if (slip.files.length === 0) {
+            alert('Please upload a slip.');
+            return false;
+        }
+
         document.getElementById('customerForm').submit();
     }
 </script>
+<script>
+            document.getElementById('image').addEventListener('change', function(e) {
+              var file = e.target.files[0];
+              if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  document.getElementById('imagePreview').style.display = 'block';
+                  document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+              }
+            });
+    </script>
 
 </body>
 </html>

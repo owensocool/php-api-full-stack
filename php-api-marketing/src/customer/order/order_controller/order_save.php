@@ -6,6 +6,7 @@ $user_id = $_SESSION['user_id'];
 include_once '../../../../config/db/connection.php';
 require_once('../order_controller/order_operator.php');
 
+
 //get order more
 $shipping_cost = 50;
 $vat = 0.07;
@@ -14,7 +15,23 @@ $message = '';
 $totalAmount = 0;
 $totalPrice = 0;
 $order_status = 'Order'; //default
-$image_path = '20240125135513.jpg';
+//$image_path = '20240125135513.jpg';
+
+function generateUniqueFilename($originalFilename) {
+    $extension = pathinfo($originalFilename, PATHINFO_EXTENSION);
+    $datetime = new DateTime();
+    return $datetime->format('YmdHis') . "." . $extension;
+}
+
+ $uploadDirectory = '../../../../public/slips/';
+    
+    if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $filename = generateUniqueFilename($_FILES['image']['name']);
+        move_uploaded_file($_FILES['image']['tmp_name'], $uploadDirectory . $filename);
+        $image_path = $filename;
+    } else {
+        $image_path = null;
+    }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //get customer data
@@ -93,13 +110,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $stmt->close();
 
 
-                // Insert into detail table
+                    // Insert into detail table
                     $insertDetailQuery = "INSERT INTO detail (order_id, product_id, amount, total_price, last_update) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
                     $stmtInsertDetail = $conn->prepare($insertDetailQuery);
                     $stmtInsertDetail->bind_param("ssds", $order_id, $productId, $quantity, $totalPrice1);
                     $stmtInsertDetail->execute();
                     $stmtInsertDetail->close();
-
 
 
                     // Delete item from cart

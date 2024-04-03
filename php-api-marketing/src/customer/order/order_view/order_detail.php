@@ -112,17 +112,27 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .submit-button {
+            width: 100px;
+            background-color: #65B741;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px; /* Add margin for spacing */
+        }
 
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo"><img src="../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
+        <div class="logo"><img src="../../../../public/beluga_logo1.png" alt="Logo"> <a>Beluga Phone Shop</a></div>
         <nav>
-            <a href="../home/index.php">หน้าหลัก</a>
-            <a href="../controller/cart.php">ตะกร้า</a>
-            <a href="../order/search_order.php">ค้นหา Order</a>
+            <a href="../../../home/index.php">หน้าหลัก</a>
+            <a href="../../cart/cart_view/cart.php">ตะกร้า</a>
+            <a href="../../order/order_view">ค้นหา Order</a>
         </nav>
         <a class="login-btn"></a>
     </header>
@@ -131,87 +141,81 @@
             <?php
             session_start();
            
-            require_once ('../../../config/db/connection.php');
-            require_once '../../customer/order/order_operator.php';
+            require_once ('../../../../config/db/connection.php');
+            require_once '../../../customer/order/order_controller/order_operator.php';
 
             $order_id=isset($_GET['order']) ? $_GET['order'] : '';
             $orders = orderDetail($order_id);
 
-             echo "<br/>
-                        <table border='0' style='width: 60%; border-collapse: collapse; margin: auto; padding-top: 5px; '>
+            if (!empty($orders)) {
+                foreach ($orders as $row1) {
+            echo "<br/>
+                        <table border='0' style='width: 40%; border-collapse: collapse; margin: auto; padding-top: 5px; '>
                             <tr style='text-align: end;'>
                             <th style='padding: 10px; text-align: start;'>หมายเลขคำสั่งซื้อ : {$order_id} </th>
-                            <th width='200px;' style='padding: 10px; font-weight: normal;'>
-                                Export PDF:<a href='../../admin/order_admin/export_pdf.php?order={$order_id}' style='padding-left:5px; display: inline-block; vertical-align: middle;'>
+                            
+                            ";
+            if ( $row1['order_status'] == 'Order' ||$row1['order_status'] == 'Reject'){  
+                echo "<th width='200px;' style='padding: 10px; font-weight: normal;'></th>";
+            
+                }
+            else {
+                echo"
+                    <th width='200px;' style='padding: 10px; font-weight: normal;'>
+                            Export PDF:<a href='../../../admin/order_admin/invoice/export_pdf.php?order={$order_id}' style='padding-left:5px; display: inline-block; vertical-align: middle;'>
                                     <button id='orderButton' type='submit'>
-                                        <img src='../../../public/pdf-50.png' width='30%' alt='pdf' style='vertical-align: middle;'>
+                                        <img src='../../../../public/pdf-50.png' width='30%' alt='pdf' style='vertical-align: middle;'>
                                         <span style='padding-top: 10px; font-weight: bold; text-align:center;'>PDF</span>
                                     </button>
                                 </a>
-                            </th>
-                        </tr>
-                          </table>
-                        <table border='0' style='width: 60%; border-collapse: collapse; margin: auto; padding-top: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
+                    </th>
+                    ";
+            }         
+            echo "  </tr></table>      
+                        <table border='0' style='width: 40%; border-collapse: collapse; margin: auto; padding-top: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);'>
                             <tr style='background-color: #0A2647; color: white; text-align: center;'>
                                 <th width='200px;' style='padding: 10px;' >ข้อมูลการสั่งซื้อ</th>
                             </tr>
                         </table>
                   ";
 
-            if (!empty($orders)) {
-                foreach ($orders as $row1) {
+            // if (!empty($orders)) {
+            //     foreach ($orders as $row1) {
                     echo "
-                        <table border='0' style='width :60%; border-collapse: collapse; margin: auto;'>
-                            <tr>
-                                <th width='20%;' style='padding: 10px; text-align: left;'><h2>ใบเสร็จรับเงิน</h2></th>
-                                
-                                <th width='5%;' style='padding: 10px;'></th>
-                            </tr>
-  
-                             <tr>
-                                
-                                <th width='50%;' style='padding: 10px; text-align: start;'>
-            
-                                    <br>
-                                    <a>ชื่อผู้สั่ง / customer  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_order']} </a><br></a>
-                                    <a>ชื่อผู้รับ   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_receive']} </a><br></a>
-                                    <a>ที่อยู่ / Address  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['address']} </a><br></a>
-                                    <a>เลขผู้เสียภาษี / TAX ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['tax_no']} E: </a><br></a>
-                                    <a>ชื่อผู้ส่ง / Attention  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='font-weight: normal;'>{$row1['name_bill']}  T: {$row1['tel']} </a><br></a>
-                                    
-                                    <hr width= '111%;' />
+                        <table border='0' style='width :40%; border-collapse: collapse; margin: auto;'>
 
-                                    <a>ผู้ออก : &nbsp;<a width='21%;' style='padding: 10px; text-align: start;'><a>Beluga Group (th) Co.,ltd </a><br></a>
-                                    <a style='font-weight: normal;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;888, ถนนประชาสำราญ เขตหนองจอก กรุงเทพมหานคร <br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; โทร 02-888-8888</a></th>
-                                </th>
-
-                                <th width='20%;' style='padding: 10px; text-align: start; position: absolute; top: 200px; right: 235px;'>
-                                    <a>เลขคำสั่งซื้อ : <a style='font-weight: normal; '>{$row1['order_id']}</a><br></a>
-                                    <a>วันที่สั่ง : <a style='font-weight: normal;'>{$row1['order_date']}</a><br></a>
-                                    
-                                </th>
-
-                                <th width='30%;' style='padding: 10px; text-align: start; position: absolute; top: 405px; right: 230px;'>
-                                    <a><a style='font-weight: normal;'>เลขผู้เสียภาษี / TAX ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1552515</a><br></a>
-                                    <a><a style='font-weight: normal;'>จัดเตรียมโดย / Prepared by &nbsp;&nbsp;&nbsp;Nattakrit Klindokkeaw</a><br></a>
-                                    <a><a style='font-weight: normal;'>T:25 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E: 63050121@kmitl.ac.th</a><br></a>
-                                    <a><a style='font-weight: normal;'>W: https://owen.com</a><br></a>
-                                </th>
-
-                            </tr>
+                        <tr>
+                            <th width='60%;' style='padding: 10px; text-align: start;'>
+                            </th>
+                            <th width='60%;' style='padding: 10px; text-align: right;'>
+                                <a style='font-weight: bold;'>สถานะออเดอร์ : {$row1['order_status']} </a>
+                            </th>
+                            
+                        </tr>
+                        <tr>
+                            <th width='60%;' style='padding: 10px; text-align: start;'>
+                                <a style='font-weight: bold; padding: 10px;'>ชื่อผู้สั่ง : </a> <a style='font-weight: normal;'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$row1['name_order']}</a><br/>
+                                <a style='font-weight: bold; padding: 10px;'>ชื่อผู้รับ : </a> <a style='font-weight: normal;'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$row1['name_receive']}</a><br/>
+                                <a style='font-weight: bold; padding: 10px;'>Email :  </a> <a style='font-weight: normal;'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$row1['email']}</a><br/>
+                                <a style='font-weight: bold; padding: 10px;'>ที่อยู่ : </a> <a style='font-weight: normal;'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$row1['address']}</a><br/>
+                                <a style='font-weight: bold; padding: 10px;'>ชื่อออกบิล : </a> <a style='font-weight: normal;'>  &nbsp;1{$row1['name_bill']}</a><br/>
+                                <a style='font-weight: bold; padding: 10px;'>เลขผู้เสียภาษี:</a><a style='font-weight: normal;'>{$row1['tax_no']}</a><br/>
+                            </th>
+                        </tr>
+                             
                         </table>
 
-                        <hr width= '60%;' />
+                        <hr width= '40%;' />
 
-                        <table border='0' style='width :60%; border-collapse: collapse; margin: auto;'>
+                        <table border='0' style='width :40%; border-collapse: collapse; margin: auto;'>
                             <tr>
-                                <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: bold;'>รายการที่สั่งซื้อ</a></th>
+                                <th width='20%;' style='padding: 10px; text-align: start;'><a style='font-weight: bold;'>รายการที่สั่งซื้อ</a></th>
                                 <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>จำนวน</a></th> 
                                 <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคาต่อหน่วย</a></th>
                                 <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ภาษี</a></th>
                                 <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight: bold;'>ราคารวม</a></th>
-                            </tr>";
+                            </tr>
+                            ";
 
                         $sql = "SELECT d.id, d.order_id, d.amount, d.total_price,p.product_name, p.product_price
                                 FROM detail d
@@ -242,7 +246,7 @@
                                     $line++;
                             
                                     echo "<tr>
-                                            <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>$line . $name1</a></th>
+                                            <th width='30%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>$line . $name1</a></th>
                                             <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>$name2</a></th> 
                                             <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>$name3</a></th>
                                             <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'>7%</a></th>
@@ -255,38 +259,80 @@
                             }
 
                                     
-                                    echo "<tr>
-                                            <th width='60%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>shipping cost</a></th>
+                                    echo "
+                                    <tr>
+                                            <th width='30%;' style='padding: 10px; text-align: start;'><a style='font-weight: normal;'>shipping cost</a></th>
                                             <th width='8%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th> 
+                                            <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th>
                                             <th width='13%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal;'></a></th>
                                             <th width='10%;' style='padding: 10px; text-align: center;'><a style='font-weight:normal; '>{$row1['shipping_cost']}</a></th>
                                         </tr>";
                             echo "</table>";
                            
-
-                           
-            
-             echo "
-                    <table border='1' style='width :60%; border-collapse: collapse; margin: auto;'>
+             echo " <hr width= '40%;' />
+                    <table border='0' style='width :40%; border-collapse: collapse; margin: auto;'>
                         <tr>
-                            <th width='60%;' style='padding: 10px; text-align: start; '>ราคาสุทธิสินค้าที่เสียภาษี</th>
-                            <th width='20%;' style='padding: 10px; text-align: center; font-weight: normal;'>$name3 บาท</th>
+                            <th width='40%;' style='padding: 10px; text-align: start; '>ราคาสุทธิสินค้าที่เสียภาษี</th>
+                            <th width='10%;' style='padding: 10px; text-align: right; font-weight: normal;'>{$row1['total_price']} บาท</th>
                     
                         </tr>
                         <tr>
-                            <th width='60%;' style='padding: 10px; text-align: start; '>ภาษีมูลค่าเพิ่ม(บาท)/VAT</th>
+                            <th width='40%;' style='padding: 10px; text-align: start; '>ภาษีมูลค่าเพิ่ม(บาท)/VAT</th>
                         </tr>
                         <tr>
-                            <th width='60%;' style='padding: 10px; text-align: start; '>จำนวนรวมทั้งสิ้น</th>
-                            <th width='20%;' style='padding: 10px; text-align: center; font-weight: normal;'>$name4 บาท</th>
+                            <th width='40%;' style='padding: 10px; text-align: start; '>จำนวนรวมทั้งสิ้น</th>
+                            <th width='40%;' style='padding: 10px; text-align: right; font-weight: normal;'>{$row1['total_price']} บาท</th>
                         </tr>
                     </table>";
-            }
 
+                if($row1['order_status'] == 'Reject'){
+                    echo "
+                    <br/>
+                    <table border='1' style='width :40%; border-collapse: collapse; margin: auto; padding-top:30px;'>
+                        <tr>
+                            <th width='40%;' style='padding: 10px; text-align: start; '>**เนื่องจากสลิปไม่ถูกต้อง กรุณาดำเนินการอัพโหลดใหม่ภายใน 3 วัน หรือ หากยังไม่ทำการชำระเงินให้รีบดำเนินการ**</th>
+                        </tr>
+                        <tr>
+                            <th style='width:'10%;' padding:2px; items-align:left;'>
+                                <img src='../../../../public/qr.jpg' alt='QR Image' width='50%'>
+                            </th>
+                            <th style='width:1%; padding: 10px; text-align:left; '>
+                                <form method='post' action='../order_controller/upload_slip.php' name='customerForm' enctype='multipart/form-data'>
+                                    <input type='hidden' name='order_id' value={$order_id}>
+                                    <input type='file' id='image' name='image' accept='image/*' required>
+                                    <input type='submit' value='Upload' class='submit-button'>
+                                </form>
+                            </th>
+                            <th style='width:20%; padding: 2px; text-align:center;'>
+                                <div id='imagePreview' style='display:none; align-items: start;'>
+                                <img id='previewImage' src='#' alt='Preview Image' style='max-width: 150px; max-height: 150px;'>
+                         </div>
+                        </th>
+
+                        </tr>
+                    </table>";
+                }
+            }
         } 
+        else{
+            echo "<center><p>ไม่หลายเลขออเดอร์นี้</p></center>";
+        }
         
     ?>
     </div>
+    <script>
+            document.getElementById('image').addEventListener('change', function(e) {
+              var file = e.target.files[0];
+              if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  document.getElementById('imagePreview').style.display = 'block';
+                  document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+              }
+            });
+    </script>
 
     <!-- <footer>
         &copy; 2024 Beluga Phone Phone Shop. All rights reserved.

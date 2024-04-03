@@ -165,7 +165,7 @@
                             <th width='150px' style='padding: 10px;'>วันที่ส่ง</th>            
                         </tr></table>
                    
-                <center><p>ไม่พบรายการที่สั่งซื้อ</p></center>";
+            <center><p>ไม่พบรายการที่สั่งซื้อ</p></center>";
         }
     }
     ?>
